@@ -104,7 +104,7 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // dd($request->nilaiTiket));
         $jatabek = intval(($request->harga * 1.2)/30);
         $luarKota = intval(($request->harga * 1.25)/30);
         $luarPulau = intval(($request->harga * 1.5)/30);
@@ -148,7 +148,7 @@ class BarangController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty')) ;
+        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty', 'nilaiTiket')) ;
         // isi field cover jika ada cover yang diupload
             if ($request->hasFile('foto')) {
 
@@ -176,33 +176,35 @@ class BarangController extends Controller
                 'qty' => $request->qty,
                 'sisa' => $request->qty
             ]);
-            
-            for ($i = 1; $i <= $area; $i++) {
-                if ($i == 1) {
-                $harga = $jatabek;
-                    if (substr($jatabek, -1) > 5 && substr($jatabek, -1) <= 9) {
-                        $harga = $atasjatabek;
-                    }elseif (substr($jatabek, -1) > 0 && substr($jatabek, -1) <= 5){
-                        $harga = $bawahjatabek;
+            if (isset($request->nilaiTiket)) {
+                
+                for ($i = 1; $i <= $area; $i++) {
+                    if ($i == 1) {
+                    $harga = $jatabek;
+                        if (substr($jatabek, -1) > 5 && substr($jatabek, -1) <= 9) {
+                            $harga = $atasjatabek;
+                        }elseif (substr($jatabek, -1) > 0 && substr($jatabek, -1) <= 5){
+                            $harga = $bawahjatabek;
+                        }
+                    }elseif ($i == 2) {
+                        $harga = $luarKota;
+                        if (substr($luarKota, -1) > 5 && substr($luarKota, -1) <= 9) {
+                            $harga = $atasLuarKota;
+                        }elseif (substr($luarKota, -1) > 0 && substr($luarKota, -1) <= 5){
+                            $harga = $bawahLuarKota;
+                        }
+                    }elseif ($i == 3) {
+                        $harga = $luarPulau;
+                        if (substr($luarPulau, -1) > 5 && substr($luarPulau, -1) <= 9) {
+                            $harga = $atasLuarPulau;
+                        }elseif (substr($luarPulau, -1) > 0 && substr($luarPulau, -1) <= 5){
+                            $harga = $bawahLuarPulau;
+                        }
                     }
-                }elseif ($i == 2) {
-                    $harga = $luarKota;
-                    if (substr($luarKota, -1) > 5 && substr($luarKota, -1) <= 9) {
-                        $harga = $atasLuarKota;
-                    }elseif (substr($luarKota, -1) > 0 && substr($luarKota, -1) <= 5){
-                        $harga = $bawahLuarKota;
-                    }
-                }elseif ($i == 3) {
-                    $harga = $luarPulau;
-                    if (substr($luarPulau, -1) > 5 && substr($luarPulau, -1) <= 9) {
-                        $harga = $atasLuarPulau;
-                    }elseif (substr($luarPulau, -1) > 0 && substr($luarPulau, -1) <= 5){
-                        $harga = $bawahLuarPulau;
-                    }
-                }
 
-                $barang->areas()->attach(Area::find($i), ['harga' => $harga]);
-            };
+                    $barang->areas()->attach(Area::find($i), ['harga' => $harga]);
+                };
+            }
             
 
 
@@ -229,11 +231,12 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
+        $satuan = Satuan::all();
         $kategori = Kategori::all();
         $lokasi = Lokasi::where('lokasi_id', '!=', null)->get();
         $lokasis = Lokasi::with('parent')->get();
         $gudang = Lokasi::where('lokasi_id', null)->get();   
-        return view('barang.edit', compact('lokasis','barang', 'lokasi', 'kategori', 'gudang'));
+        return view('barang.edit', compact('satuan','lokasis','barang', 'lokasi', 'kategori', 'gudang'));
     }
 
     /**
@@ -245,15 +248,24 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
+        $area = Area::all();
+        foreach ($barang->areas as $log) {
+            
+        echo "$log";
+        }
+
+        dd('stop');
         $this->validate($request,[
             'nama'=>'required',
-            'lokasi_id'=>'required|exists:lokasis,id',
             'kategori_id'=>'required|exists:kategoris,id',
-            'jumlah'=>'required',
             'user_id' => 'required|exists:users,id',
             
         ]);
-        $barang->update($request->except('gudang_id'));
+        $barang->update($request->except('foto','qty', 'nilaiTiket'));
+        $barang->stoks->first()->update([
+            'qty' => $request->qty,
+        ]);
+
         if ($request->hasFile('foto')) {
         // menambil foto yang diupload berikut ekstensinya
         $filename = null;
@@ -278,6 +290,25 @@ class BarangController extends Controller
         $barang->foto = $filename;
         $barang->save();
         }
+        alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
+        // Session::flash("flash_notification", [
+        //     "level"=>"success",
+        //     "message"=>"Berhasil memperbarui data $barang->nama"
+        // ]);
+
+        return redirect()->route('barang.index');
+    }
+
+    public function updateLokasiBarang(Request $request, Barang $barang)
+    {
+        $this->validate($request,[
+            'barang_id'=>'required|exists:barangs,id',
+            'lokasi_id'=>'required|exists:lokasis,id',
+            'user_id' => 'required|exists:users,id',
+            
+        ]);
+        $barang->update($request->except('gudang_id', 'nama', 'barang_id'));
+        
         alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
         // Session::flash("flash_notification", [
         //     "level"=>"success",

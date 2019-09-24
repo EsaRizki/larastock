@@ -44,7 +44,6 @@ class StokController extends Controller
             'barang_id' => 'required|exists:barangs,id',
             'qty'=>'required',
             'keterangan' => 'required',
-            'sisa'=>'required'
         ]);
         // $sisa = $request->sisa + $request->qty;
         // dd($sisa);

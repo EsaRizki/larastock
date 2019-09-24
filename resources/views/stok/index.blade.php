@@ -32,6 +32,7 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Status</th>
                                     <th>Keterangan</th>
                                     <th>Jumlah</th>
                                     <th>Sisa</th>
@@ -66,10 +67,15 @@
                                     @else
                                 <td>Keluar</td>
                                 @endif
-                                        <td>{{ $log->qty }}</td>
-                                        @php
-                                            $awal = $log->first()->sisa;
-                                        @endphp
+                                @if (is_null($log->transaksi_id) && is_null($log->keterangan))
+                                    <td>Stok Awal</td>
+                                    @elseif (is_null($log->transaksi_id) && !is_null($log->keterangan))
+                                    <td>{{ $log->keterangan }}</td>
+                                @endif
+                                <td>{{ $log->qty }}</td>
+                                @php
+                                    $awal = $log->first()->sisa;
+                                @endphp
                                 {{-- @if ($loop->first)
                                         <td>{{ $awal }}</td>
                                     @else
@@ -92,6 +98,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Status</th>
                                     <th>Keterangan</th>
                                     <th>Jumlah</th>
                                     <th>Sisa</th>

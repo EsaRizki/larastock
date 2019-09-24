@@ -44,8 +44,8 @@
 
 @yield('body')
 
-{{-- <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script> --}}
-<script src="{{ asset('js/jquery-3.3.1.js') }}"></script>
+<script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.min.js') }}"></script>
+{{-- <script src="{{ asset('js/jquery-3.4.1.js') }}"></script> --}}
 <script src="{{ asset('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('vendor/adminlte/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
@@ -61,7 +61,7 @@
 <script src="{{ asset('js/pdfmake.min.js') }}"></script>
 <script src="{{ asset('js/vfs_fonts.js') }}"></script>
  --}}{{-- <script src="{{ asset('js/buttons.print.min.js') }}"></script> --}}
-<script src="{{ asset('js/select2.min.js') }}"></script>
+<script src="{{ asset('js/select2.full.js') }}"></script>
 
 <script>
 $(document).ready( function () {

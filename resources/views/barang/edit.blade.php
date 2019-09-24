@@ -13,20 +13,17 @@
                 <li class="breadcrumb-item active" aria-current="page">Ubah Barang</li>
               </ol>
             </nav>
-            <div class="box box-solid box-primary">
+            <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h2 class="box-title">Ubah Barang</h2>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                <i class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fa fa-times"></i></button>
-                        </div>
-
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#ubahBarang">Barang</a></li>
+                          <li><a data-toggle="tab" href="#ubahLokasi">Lokasi</a></li>
+                        </ul>
                     </div>
                 <div class="box-body">
-                  <form method="POST" action="{{ route('barang.update', $barang) }}" enctype="multipart/form-data">
+                    <div class="tab-content">
+                        <div id="ubahBarang" class="tab-pane fade in active">
+                            <form method="POST" action="{{ route('barang.update', $barang) }}" enctype="multipart/form-data">
                         @csrf
                         {{ method_field('PUT') }}
                         <input type="hidden" name="user_id" value="{{ Auth::id() }}">
@@ -103,52 +100,47 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="gudang" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Gudang') }}</label>
+                            <label for="harga" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Harga') }}</label>
+
                             <div class="col-md-6">
-                                    {{-- <option value="{{ $e->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $lok->id ? 'selected' : '' }}>{{ $lok->parent->nama }}</option> --}}
-                                <select class="js-example-basic-single form-control gudang" name="gudang_id">
-                                  <option value="" disabled selected></option>
-                                  @foreach($gudang as $key)
-                                    <option value="{{ $key->id }}">{{ $key->nama }}</option>
-                                  @endforeach
-                                  {{-- @foreach ($gudang as $gu)
-                                  @foreach($lokasi as $key)
-                                  @endforeach
-                                    <option value="{{ $key->parent->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $key->id ? 'selected' : '' }}>{{ $key->parent->nama }}</option>
-                                  @endforeach --}}
-                                </select>
-                                @error('lokasi')
+                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="qty" value="{{ old('harga', $barang->harga) }}" required autocomplete="harga" autofocus>
+
+                                @error('harga')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nilaiTiket">
+                            <label class="form-check-label" for="exampleCheck1">Atur nilai tiket</label>
+                          </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="lokasi" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Lokasi') }}</label>
-
-                            <div class="col-md-6">
-                                <select class="js-example-basic-single form-control lokasi" name="lokasi_id">
-                                  @foreach($lokasi as $key)
-                                    <option value="{{ $key->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $key->id ? 'selected' : '' }}>{{ $key->nama }}</option>
-                                  @endforeach
-                                </select>
-                                @error('lokasi')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    </div>
 
                         <div class="form-group row">
                             <label for="jumlah" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Jumlah') }}</label>
 
                             <div class="col-md-6">
-                                <input id="jumlah" type="number" class="form-control @error('jumlah') is-invalid @enderror" name="qty" value="{{ old('jumlah', $barang->jumlah) }}" required autocomplete="jumlah" autofocus>
+                                <input id="jumlah" type="number" class="form-control @error('jumlah') is-invalid @enderror" name="qty" value="{{ old('jumlah', $barang->stoks->first()->qty) }}" required autocomplete="jumlah" autofocus>
 
                                 @error('jumlah')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="satuan" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Satuan') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="js-example-basic-single form-control" name="satuan_id">
+                                  @foreach($satuan as $key)
+                                    <option value="{{ $key->id }}" {{ old('satuan_id', $barang->satuan_id) == $key->id ? 'selected' : '' }}>{{ $key->nama }}</option>
+                                  @endforeach
+                                </select>
+                                @error('satuan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -177,6 +169,79 @@
                             </div>
                         </div>
                     </form>
+                        </div>
+          
+                      <div id="ubahLokasi" class="tab-pane fade">
+                         <form method="POST" action="{{ route('barang.lokasi', $barang) }}" enctype="multipart/form-data">
+                        @csrf
+                        {{ method_field('PUT') }}
+                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                        <input type="hidden" name="barang_id" value="{{ $barang->id }}">
+                        <div class="form-group row">
+                            <label for="nama" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Nama') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama', $barang->nama) }}" required autocomplete="nama" autofocus disabled="">
+
+                                @error('nama')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="gudang" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Gudang') }}</label>
+                            <div class="col-md-6">
+                                    {{-- <option value="{{ $e->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $lok->id ? 'selected' : '' }}>{{ $lok->parent->nama }}</option> --}}
+                                <select class="js-example-basic-single form-control gudang" name="gudang_id" style="width: 100%">
+                                  <option value="" disabled selected></option>
+                                  @foreach($gudang as $key)
+                                    <option value="{{ $key->id }}">{{ $key->nama }}</option>
+                                  @endforeach
+                                  {{-- @foreach ($gudang as $gu)
+                                  @foreach($lokasi as $key)
+                                  @endforeach
+                                    <option value="{{ $key->parent->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $key->id ? 'selected' : '' }}>{{ $key->parent->nama }}</option>
+                                  @endforeach --}}
+                                </select>
+                                @error('lokasi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lokasi" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Lokasi') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="js-example-basic-single form-control lokasi" name="lokasi_id" style="width: 100%">
+                                  @foreach($lokasi as $key)
+                                    <option value="{{ $key->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $key->id ? 'selected' : '' }}>{{ $key->nama }}</option>
+                                  @endforeach
+                                </select>
+                                @error('lokasi')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 col-md-offset-4 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Simpan') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>                                        
+                      </div>
+                </div>
+                  
 
         </div>
     </div>

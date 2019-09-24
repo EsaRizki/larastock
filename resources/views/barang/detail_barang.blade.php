@@ -22,7 +22,7 @@
                   $transaksi = $log->carts->where('status', 1);
                   $sisa = $log->jumlah - $transaksi->sum('qty'); 
               @endphp
-                Sisa : {{ $sisa }}
+                Sisa : {{ $log->stoks->sum('qty') }}
             </div>
             <div class="row">
               <a href="{{ route('barang.transaksi', $log->id) }}">{{ $log->carts->where('status', 1)->count() }} transaksi</a>

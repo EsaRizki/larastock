@@ -32,6 +32,12 @@ Route::get('barang/habis', [
 			'uses' => 'BarangController@barangHabis'
 		]);
 Route::resource('barang', 'BarangController');
+Route::put('barang/{barang}/lokasi', [
+			'as' => 'barang.lokasi',
+			'uses' => 'BarangController@updateLokasiBarang'
+		]);
+Route::resource('barang', 'BarangController');
+
 Route::get('/stok/index/{id}', 'StokController@index')->name('stok.index');
 Route::get('/stok/create/{id}', 'StokController@create')->name('stok.create');
 Route::post('/stok', 'StokController@store')->name('stok.store');

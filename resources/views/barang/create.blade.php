@@ -144,10 +144,11 @@
                                 <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" required autocomplete="harga" placeholder="Harga beli" autofocus>
 
                             <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nilaiTiket">
+                            <label class="form-check-label" for="exampleCheck1">Atur nilai tiket</label>
                           </div>
                             </div>
+                            <div>    
                                 @error('harga')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

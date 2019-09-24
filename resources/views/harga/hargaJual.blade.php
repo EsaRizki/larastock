@@ -32,14 +32,27 @@
                             <thead>
                                 <tr>
                                     <th>Area</th>
+                                    <th>Nilai Rumus</th>
                                     <th>Nilai Tiket</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody> 
+                                @php
+                                    $jatabek = ($barang->harga * 1.2)/30;
+                                    $luarKota = ($barang->harga * 1.25)/30;
+                                    $luarPulau = ($barang->harga * 1.5)/30;
+                                @endphp
                                 @foreach ($barang->areas as $log)
                                 <tr>
                                     <td>{{ $log->nama }}</td>
+                                    @if ($log->id == 1)
+                                    <td>{{ $jatabek }}</td>
+                                    @elseif ($log->id == 2)
+                                    <td>{{ $luarKota }}</td>
+                                    @elseif ($log->id == 3)
+                                    <td>{{ $luarPulau }}</td>
+                                    @endif
                                     <td>{{ $log->pivot->harga }}</td>
                                     <td>@include('harga.action')</td>
                                 </tr>
@@ -48,6 +61,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Area</th>
+                                    <th>Nilai Rumus</th>
                                     <th>Nilai Tiket</th>
                                     <th>Action</th>
                                 </tr>
