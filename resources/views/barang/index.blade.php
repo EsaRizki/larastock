@@ -38,7 +38,7 @@
                     @endif
                   </p>
                    <div class="table-responsive">
-                        <table id="barang" class="table table-striped table-hover table-bordered responsive dt-responsive display nowrap" cellspacing="0" >
+                        <table id="example" class="table table-bordered table-striped display responsive nowrap compact" cellspacing="0" >
                             @if (Auth::user()->role_id == 1)
                                 @include('barang.tabel_admin')
                             @endif
@@ -55,46 +55,13 @@
 @endsection
 
 @section('js')
-    <script>
-        $(document).ready( function () {
-            var table = $('#barang').DataTable(
-
-    {
-        "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Indonesian.json"
-            },
-        responsive:false,
-     
-       dom: 'l Bfrtip',
-       buttons: [
-       {
-            extend: 'print',
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-        {
-            extend: 'pdf',
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-        {
-            extend: 'excel',
-            exportOptions: {
-                columns: ':visible'
-            }
-        },
-            'colvis'
-       ],
-        columnDefs: [ {
-            targets: [2,3,4,6],
-            visible: false
-        } ],
-     
-}
-);
-    });
-    </script>
+   
     <script> console.log('Hi!'); </script>
+    <script>
+        function init() {
+  document.getElementById("upload_form").reset();
+}
+
+window.onload = init;
+    </script>
 @stop

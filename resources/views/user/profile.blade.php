@@ -48,7 +48,7 @@
                             </div>
                         </div>
             </form>
-                  </div>
+          </div>
                   <div id="password" class="tab-pane fade">
                     <form method="POST" id="myForm" action="{{ route('profile.update', Auth::id()) }}" data-toogle="validator">
                         @csrf

@@ -103,7 +103,7 @@
                             <label for="harga" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Harga') }}</label>
 
                             <div class="col-md-6">
-                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="qty" value="{{ old('harga', $barang->harga) }}" required autocomplete="harga" autofocus>
+                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga', $barang->harga) }}" required autocomplete="harga" autofocus>
 
                                 @error('harga')
                                     <span class="invalid-feedback" role="alert">
@@ -111,7 +111,11 @@
                                     </span>
                                 @enderror
                             <div class="form-check">
+                            @if($barang->areas != '[]')
+                            <input type="checkbox" class="form-check-input" checked="" id="exampleCheck1" name="nilaiTiket">
+                            @else
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nilaiTiket">
+                            @endif
                             <label class="form-check-label" for="exampleCheck1">Atur nilai tiket</label>
                           </div>
                         </div>

@@ -248,13 +248,15 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        $area = Area::all();
+        $area = count(Area::all());
+            if ($barang->areas == '[]') {
+                echo "Kosong";
+            }
         foreach ($barang->areas as $log) {
             
         echo "$log";
         }
 
-        dd('stop');
         $this->validate($request,[
             'nama'=>'required',
             'kategori_id'=>'required|exists:kategoris,id',
@@ -289,6 +291,51 @@ class BarangController extends Controller
         }
         $barang->foto = $filename;
         $barang->save();
+        }
+
+        //Rumus Nilai Tiket
+        $jatabek = intval(($request->harga * 1.2)/30);
+        $luarKota = intval(($request->harga * 1.25)/30);
+        $luarPulau = intval(($request->harga * 1.5)/30);
+        
+        $atasjatabek = ($jatabek - substr($jatabek, -1)) + 10;
+        $bawahjatabek = ($jatabek - substr($jatabek, -1)) + 5;
+        
+        $atasLuarKota = ($luarKota - substr($luarKota, -1)) + 10;
+        $bawahLuarKota = ($luarKota - substr($luarKota, -1)) + 5;
+        
+        $atasLuarPulau = ($luarPulau - substr($luarPulau, -1)) + 10;
+        $bawahLuarPulau = ($luarPulau - substr($luarPulau, -1)) + 5;
+
+        //Rumus Nilai Tiket
+
+        if (isset($request->nilaiTiket)) {
+            for ($i = 1; $i <= $area; $i++) {
+                    if ($i == 1) {
+                    $harga = $jatabek;
+                        if (substr($jatabek, -1) > 5 && substr($jatabek, -1) <= 9) {
+                            $harga = $atasjatabek;
+                        }elseif (substr($jatabek, -1) > 0 && substr($jatabek, -1) <= 5){
+                            $harga = $bawahjatabek;
+                        }
+                    }elseif ($i == 2) {
+                        $harga = $luarKota;
+                        if (substr($luarKota, -1) > 5 && substr($luarKota, -1) <= 9) {
+                            $harga = $atasLuarKota;
+                        }elseif (substr($luarKota, -1) > 0 && substr($luarKota, -1) <= 5){
+                            $harga = $bawahLuarKota;
+                        }
+                    }elseif ($i == 3) {
+                        $harga = $luarPulau;
+                        if (substr($luarPulau, -1) > 5 && substr($luarPulau, -1) <= 9) {
+                            $harga = $atasLuarPulau;
+                        }elseif (substr($luarPulau, -1) > 0 && substr($luarPulau, -1) <= 5){
+                            $harga = $bawahLuarPulau;
+                        }
+                    }
+                    $barang->areas()->detach(Area::find($i));
+                    $barang->areas()->attach(Area::find($i), ['harga' => $harga]);
+                };
         }
         alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
         // Session::flash("flash_notification", [

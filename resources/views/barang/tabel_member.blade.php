@@ -27,7 +27,12 @@
                                             {{ csrf_field() }}
                                         <td>
 
-                                            <input type="number" name="qty" min="1" max="{{ $log->stoks->sum('qty') }}">
+                                        <script>
+                                        window.onload = function(){
+                                         $('#qty').val([]);
+                                        }
+                                        </script>
+                                            <input type="number" id="qty" name="qty" min="1" max="{{ $log->stoks->sum('qty') }}">
                                             @if ($errors->has('qty'))
                                             <div class="alert alert-danger">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -56,3 +61,10 @@
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
+
+
+@section('js')
+   
+    <script> console.log('Hi!'); </script>
+    
+@stop
