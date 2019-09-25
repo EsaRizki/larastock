@@ -11,4 +11,8 @@ class Gedung extends Model
     public function area(){
     	return $this->belongsTo('App\Area');
     }
+
+    public function badanUsaha(){
+    	return $this->belongsTo('App\BadanUsaha', 'badan_usaha_id');
+    }
 }

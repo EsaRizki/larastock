@@ -8,6 +8,7 @@ use App\Kategori;
 use App\Gedung;
 use App\Area;
 use App\Satuan;
+use App\BadanUsaha;
 class UserSeeder extends Seeder
 {
     /**
@@ -17,6 +18,30 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $bu = new BadanUsaha();
+        $bu->nama = "PT";
+        $bu->save();
+
+        $bu1 = new BadanUsaha();
+        $bu1->nama = "CV";
+        $bu1->save();
+
+        $bu2 = new BadanUsaha();
+        $bu2->nama = "PW";
+        $bu2->save();
+
+        $bu3 = new BadanUsaha();
+        $bu3->nama = "SS";
+        $bu3->save();
+
+        $bu4 = new BadanUsaha();
+        $bu4->nama = "SW 1";
+        $bu4->save();
+
+        $bu5 = new BadanUsaha();
+        $bu5->nama = "SW 2";
+        $bu5->save();
+
         $satuan = new Satuan();
         $satuan->nama = 'PCS';
         $satuan->save();
@@ -126,6 +151,7 @@ class UserSeeder extends Seeder
         $gedung = new Gedung();
         $gedung->area_id = $area->id;
         $gedung->nama = 'SG Rangkas';
+        $gedung->badan_usaha_id = $bu->id;
         $gedung->alamat = 'JL Multatuli, No. 71, Muara Ciujung Bar., Kec. Rangkasbitung, Kabupaten Lebak, Banten 42312';
         $gedung->save();
     }

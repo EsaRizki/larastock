@@ -26,14 +26,15 @@
 
                     </div>
                 <div class="box-body">
-                  <form method="POST" action="{{ route('gedung.store') }}">
+                  <form method="POST" action="{{ route('gedung.update', $gedung) }}">
                         @csrf
+                        {{ method_field('PUT') }}
 
                         <div class="form-group row">
                             <label for="nama" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Nama') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama', $gedung->nama) }}" required autocomplete="nama" autofocus>
 
                                 @error('nama')
                                     <span class="invalid-feedback" role="alert">
@@ -50,7 +51,7 @@
                                 <select class="js-example-basic-single form-control" name="badanUsaha">
                                   <option value="" disabled selected></option>
                                   @foreach($badanUsaha as $key)
-                                    <option value="{{ $key->id }}">{{ $key->nama }}</option>
+                                    <option value="{{ $key->id }}" {{ old('badanUsaha', $gedung->badan_usaha_id) == $key->id ? 'selected' : '' }}>{{ $key->nama }}</option>
                                   @endforeach
                                 </select>
 
@@ -69,7 +70,7 @@
                                 <select class="js-example-basic-single form-control" name="area">
                                   <option value="" disabled selected></option>
                                   @foreach($area as $key)
-                                    <option value="{{ $key->id }}">{{ $key->nama }}</option>
+                                    <option value="{{ $key->id }}" {{ old('area', $gedung->area_id) == $key->id ? 'selected' : '' }}>{{ $key->nama }}</option>
                                   @endforeach
                                 </select>
 
@@ -85,7 +86,7 @@
                             <label for="alamat" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Alamat') }}</label>
 
                             <div class="col-md-6">
-                                <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus></textarea>
+                                <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus>{{ $gedung->alamat }}</textarea>
                                 @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

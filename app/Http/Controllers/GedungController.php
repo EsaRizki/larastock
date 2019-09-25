@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gedung;
 use Illuminate\Http\Request;
 use App\Area;
+use App\BadanUsaha;
 class GedungController extends Controller
 {
     /**
@@ -26,7 +27,8 @@ class GedungController extends Controller
     public function create()
     {
         $area = Area::all();
-        return view('gedung.create', compact('area'));
+        $badanUsaha = BadanUsaha::all();
+        return view('gedung.create', compact('area', 'badanUsaha'));
     }
 
     /**
@@ -38,12 +40,18 @@ class GedungController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'nama'=>'required|unique:lokasis',
-            'area_id'=>'required|exists:areas,id',
+            'nama'=>'required',
+            'area'=>'required|exists:areas,id',
+            'badanUsaha'=>'required|exists:badan_usahas,id',
             'alamat'=>'required',
         ]);
 
-        $gedung = Gedung::create($request->all());
+        $gedung = Gedung::create([
+            'nama' => $request->nama,
+            'badan_usaha_id' => $request->badanUsaha,
+            'area_id' => $request->area,
+            'alamat' => $request->alamat,
+        ]);
 
         alert()->success("Berhasil menyimpan data $gedung->nama", 'Sukses!')->autoclose(2500);
         return redirect()->route('gedung.index');
@@ -68,7 +76,9 @@ class GedungController extends Controller
      */
     public function edit(Gedung $gedung)
     {
-        //
+        $badanUsaha = BadanUsaha::all();
+        $area = Area::all();
+        return view('gedung.edit', compact('gedung', 'badanUsaha', 'area'));
     }
 
     /**
@@ -80,7 +90,15 @@ class GedungController extends Controller
      */
     public function update(Request $request, Gedung $gedung)
     {
-        //
+        $gedung->update([
+            'nama' => $request->nama,
+            'badan_usaha_id' => $request->badanUsaha,
+            'area_id' => $request->area,
+            'alamat' => $request->alamat,
+        ]);
+        alert()->success("Berhasil mengubah data $gedung->nama", 'Sukses!')->autoclose(2500);
+
+        return redirect()->route('gedung.index');
     }
 
     /**
@@ -91,6 +109,8 @@ class GedungController extends Controller
      */
     public function destroy(Gedung $gedung)
     {
-        //
+        $gedung->delete();
+        alert()->success("Berhasil menghapus data", 'Sukses!')->autoclose(2500);
+        return redirect()->route('gedung.index');
     }
 }

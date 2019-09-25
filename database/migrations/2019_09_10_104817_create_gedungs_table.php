@@ -16,6 +16,7 @@ class CreateGedungsTable extends Migration
         Schema::create('gedungs', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->string('nama', 50)->unique();
+            $table->tinyInteger('badan_usaha_id')->unsigned();
             $table->text('alamat');
             $table->timestamps();
         });

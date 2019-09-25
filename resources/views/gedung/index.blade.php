@@ -31,6 +31,7 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Badan Usaha</th>
                                     <th>Area</th>
                                     <th>Alamat</th>
                                     <th>Action</th>
@@ -42,6 +43,7 @@
                                         <td>
                                             {{ $log->nama }}
                                         </td>
+                                        <td>{{ $log->badanUsaha->nama }}</td>
                                         <td>{{ str_limit($log->area->nama, $limit = 20, $end = '...') }}</td>
                                         <td>{{ str_limit($log->alamat, $limit = 30, $end = '...') }}</td>
                                         <td> @include('gedung.action')
@@ -52,6 +54,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Badan Usaha</th>
                                     <th>Area</th>
                                     <th>Alamat</th>
                                     <th>Action</th>
