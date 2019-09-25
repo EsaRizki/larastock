@@ -101,7 +101,7 @@ class TransaksiController extends Controller
             $stok = Stok::create([
                 'barang_id'=> $cart->barang_id,
                 'transaksi_id'=> $transaksi->id,
-                'qty'=> 0- $cart->qty,
+                'qty'=> 0 - $cart->qty,
                 'sisa'=>$cart->qty,
             ]);
            

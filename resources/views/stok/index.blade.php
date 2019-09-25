@@ -56,11 +56,15 @@
 
                                 @endphp
                                 @foreach ($barang->stoks as $log)
-                                                                    {{-- {{ $start }} --}}
+                                
                                     <tr>   
+                                @if (is_null($log->transaksi_id))                                    {{-- {{ $start }} --}}
                                         <td>
                                             {{ $barang->user->name }}
                                         </td>
+                                        @elseif (!is_null($log->transaksi_id))
+                                        <td>{{ $log->transaksi->users->name }}</td>
+                                @endif
 
                                 @if (!isset($log->transaksi_id))
                                         <td>Masuk</td>
@@ -71,6 +75,8 @@
                                     <td>Stok Awal</td>
                                     @elseif (is_null($log->transaksi_id) && !is_null($log->keterangan))
                                     <td>{{ $log->keterangan }}</td>
+                                     @elseif (!is_null($log->transaksi_id) && is_null($log->keterangan))
+                                    <td>{{ $log->transaksi->keterangan }}</td>               
                                 @endif
                                 <td>{{ $log->qty }}</td>
                                 @php

@@ -57,11 +57,5 @@
 @section('js')
    
     <script> console.log('Hi!'); </script>
-    <script>
-        function init() {
-  document.getElementById("upload_form").reset();
-}
-
-window.onload = init;
-    </script>
+    
 @stop
