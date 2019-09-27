@@ -95,7 +95,7 @@ class GedungController extends Controller
             'badan_usaha_id' => $request->badanUsaha,
             'area_id' => $request->area,
             'alamat' => $request->alamat,
-        ]);
+        ]   );
         alert()->success("Berhasil mengubah data $gedung->nama", 'Sukses!')->autoclose(2500);
 
         return redirect()->route('gedung.index');

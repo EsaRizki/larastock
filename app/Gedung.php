@@ -15,4 +15,8 @@ class Gedung extends Model
     public function badanUsaha(){
     	return $this->belongsTo('App\BadanUsaha', 'badan_usaha_id');
     }
+
+    public function transaksis(){
+    	return $this->hasMany('App\Transaksi');
+    }
 }

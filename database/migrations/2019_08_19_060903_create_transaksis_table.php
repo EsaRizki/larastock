@@ -18,6 +18,7 @@ class CreateTransaksisTable extends Migration
             $table->bigInteger('user_id')->unsigned();
 
             $table->smallInteger('gedung_id')->unsigned();
+            $table->boolean('status')->default(0);
             $table->text('keterangan');
             $table->timestamps();
 

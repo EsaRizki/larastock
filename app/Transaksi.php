@@ -18,6 +18,11 @@ class Transaksi extends Model
     	return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function gedung()
+    {
+        return $this->belongsTo('App\Gedung', 'gedung_id');
+    }
+
     public function stoks(){
     	// return $this->hasMany('App\Stok');
 

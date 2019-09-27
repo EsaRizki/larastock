@@ -41,6 +41,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Barang</th>
+                                    <th>Status</th>
                                     <th>Keterangan</th>
                                     <th>Jumlah Keseluruhan</th>
                                     <th>Tanggal</th>
@@ -56,6 +57,7 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Barang</th>
+                                    <th>Status</th>
                                     <th>Keterangan</th>
                                     <th>Jumlah Keseluruhan</th>
                                     <th>Tanggal</th>

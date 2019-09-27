@@ -56,6 +56,7 @@ Route::get('/harga/barang/{barang}/area/{area}', 'HargaJualController@edit')->na
 Route::put('/harga/update/{barang}/area/{area}', 'HargaJualController@update')->name('harga.update');
 Route::delete('/harga/{barang}/area/{area}','HargaJualController@destroy')->name('harga.destroy');
 Route::resource('cart', 'CartController');
+Route::resource('suratJalan', 'SuratJalanController');
 Route::resource('transaksi', 'TransaksiController');
 Route::get('user/profile/{id}', [
 			'as' => 'user.profile',

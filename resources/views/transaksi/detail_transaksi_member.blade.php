@@ -11,6 +11,12 @@
         <a href="#myModal" id="openBtn" data-toggle="modal" data-target="{{ '#' . $log->id . 'barang' }}">{{ $log->carts->count() }} jenis barang</a>
         @include('transaksi.detail_barang', ['object' => $log])
     </td>
+
+    @if($log->status == 0)
+        <td>Menunggu</td>
+        @elseif($log->status == 1)
+        <td>Sedang diproses</td>
+    @endif
     
     <td>{{ $log->keterangan }}</td>
     <td>
