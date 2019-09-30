@@ -36,8 +36,10 @@ class SuratJalanController extends Controller
     public function store(Request $request)
     {
         $jenis = "SJB";
+        $no = count(suratJalan::all()) + 61;
         if ($request->jenis == 1) {
             $jenis = "SJM";
+            $no = count(suratJalan::all()) + 31;
         }
         $bulan = "I";
         $car = \Carbon\Carbon::now();
@@ -69,8 +71,23 @@ class SuratJalanController extends Controller
         $transaksi = Transaksi::find($request->transaksi_id);
         $transaksi = $transaksi->gedung->badanUsaha->nama;
         $tahun = substr($car->year, -2);
-        $surat = "1/$jenis/$transaksi-SKJ/$bulan/$tahun";
-        dd($surat);
+        $surat = "$no/$jenis/$transaksi-SKJ/$bulan/$tahun";
+        $suratJalan = suratJalan::create([
+            'transaksi_id' => $request->transaksi_id,
+            'no_surat' => $surat,
+            'pengirim' => $request->pengirim,
+            'jenis' => $request->jenis,
+            'hp' => $request->hp,
+            'no_polisi' => $request->no_polisi
+        ]);
+
+        $transaksi = Transaksi::find($request->transaksi_id);
+        $transaksi->update([
+            'status'=>1,
+        ]);
+        
+        alert()->success("Berhasil menyimpan data pengirim", 'Sukses!');
+        return redirect()->route('transaksi.index');
     }
 
     /**

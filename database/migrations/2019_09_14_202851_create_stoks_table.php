@@ -18,7 +18,6 @@ class CreateStoksTable extends Migration
             $table->bigInteger('barang_id')->unsigned();
             $table->bigInteger('transaksi_id')->unsigned()->nullable();
             $table->integer('qty');
-            $table->integer('sisa');
             $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->foreign('barang_id')->references('id')->on('barangs')->onUpdate('cascade');

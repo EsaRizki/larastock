@@ -174,7 +174,6 @@ class BarangController extends Controller
             $stok = Stok::create([
                 'barang_id' => $barang->id,
                 'qty' => $request->qty,
-                'sisa' => $request->qty
             ]);
             if (isset($request->nilaiTiket)) {
                 
