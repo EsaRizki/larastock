@@ -85,10 +85,10 @@ class SuratJalanController extends Controller
         $transaksi->update([
             'status'=>1,
         ]);
-        
+
         alert()->success("Berhasil menyimpan data pengirim", 'Sukses!');
         return redirect()->route('transaksi.index');
-    }
+    } 
 
     /**
      * Display the specified resource.

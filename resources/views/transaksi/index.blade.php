@@ -80,6 +80,8 @@
       $(document).ready( function () {
         $('#examples').DataTable();
         $('#exampler').DataTable();
+
+        $('#confirm').DataTable();
     } );
     </script>
 @stop

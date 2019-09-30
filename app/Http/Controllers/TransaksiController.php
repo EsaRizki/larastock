@@ -39,11 +39,55 @@ class TransaksiController extends Controller
         return view('transaksi.checkout', compact('request'));
     }
     /**
+
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+  
+       */
+    public function confirm(Request $request){
+        $terima = $request->qty; 
+        $transaksi = Transaksi::find($request->transaksi_id);
+        $f = $transaksi->carts()->find($request->barang_id);
+        $selisih = $f[0]->qty - $terima;
+        $kurang = "item yang dikirim kurang ". abs($selisih);
+        $lebih = "item yang dikirim lebih $selisih";
+         
+        $transaksi->barangs()->attach(Barang::find($request->barang_id), ['qty'=>$request->qty]);
+        $f[0]->update([
+            'status' => 2,
+        ]);
+
+        if ($selisih < 0) {
+            Stok::create([
+                'barang_id' => $request->barang_id[0],
+                'transaksi_id' => $request->transaksi_id,
+                'qty' => $selisih,
+                'sisa' => $selisih,
+                'keterangan' => $kurang,
+            ]);
+        }elseif ($selisih > 0) {
+            Stok::create([
+                'barang_id' => $request->barang_id[0],
+                'transaksi_id' => $request->transaksi_id,
+                'sisa' => $selisih,
+                'qty' => $selisih,
+                'keterangan' => $lebih,
+            ]);
+        }
+
+        $hitung = count($transaksi->carts->where('status', 1));
+        if ($hitung == 0) {
+            $transaksi->update([
+                'status' => 2,
+            ]);
+        }
+        alert()->success("Berhasil menyelesaikan transaksi", 'Sukses!');
+        return redirect()->route('transaksi.index');
+        
+    }
+
     public function store(Request $request)
     {
         // $cartUser = Cart::where('user_id', Auth::id())->where('status', 0)->get();

@@ -33,4 +33,9 @@ class Transaksi extends Model
     {
         return $this->hasOne('App\suratJalan');
     }
+
+    public function barangs() 
+    {
+        return $this->belongsToMany('App\Barang')->withPivot('qty');
+    }
 }

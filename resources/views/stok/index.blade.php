@@ -76,9 +76,11 @@
                                     @elseif (is_null($log->transaksi_id) && !is_null($log->keterangan))
                                     <td>{{ $log->keterangan }}</td>
                                      @elseif (!is_null($log->transaksi_id) && is_null($log->keterangan))
-                                    <td>{{ $log->transaksi->keterangan }}</td>               
+                                    <td>{{ $log->transaksi->keterangan }}</td>
+                                    @elseif (!is_null($log->transaksi_id) && !is_null($log->barang_id))
+                                    <td>{{ $log->keterangan }}</td>                   
                                 @endif
-                                <td>{{ $log->qty }}</td>
+                                <td>{{ abs($log->qty) }}</td>
                                 @php
                                     $awal = $log->first()->sisa;
                                 @endphp

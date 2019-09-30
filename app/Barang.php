@@ -38,9 +38,13 @@ class Barang extends Model
 
 	public function areas()
 	{
-	return $this->belongsToMany('App\Area')->withPivot('harga');;
+	return $this->belongsToMany('App\Area')->withPivot('harga');
 	}
 
+	public function transaksis()
+	{
+	return $this->belongsToMany('App\Transaksi')->withPivot('qty');
+	}
 
 	// public function transaksis()
  //    {
