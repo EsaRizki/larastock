@@ -34,6 +34,9 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function checkout(Request $request){
+
+    }
     public function store(Request $request)
     {
        $this->validate($request,[

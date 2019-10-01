@@ -51,7 +51,6 @@ class StokController extends Controller
         $stok = Stok::create([
             'barang_id'=>$request->barang_id,
             'qty'=>$request->qty,
-            'sisa'=> $request->sisa + $request->qty,
             'keterangan'=>$request->keterangan,
         ]);
         alert()->success("Berhasil menyimpan data stok $barang->nama", 'Sukses!');

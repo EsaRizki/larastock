@@ -19,6 +19,7 @@ class CreateCartsTable extends Migration
             $table->bigInteger('barang_id')->unsigned();
             $table->integer('qty');
             $table->boolean('status')->default(false);
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

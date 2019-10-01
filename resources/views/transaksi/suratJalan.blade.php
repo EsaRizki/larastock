@@ -81,6 +81,19 @@
 					<td>Qty</td>
 					<td>Satuan</td>
 				</tr>
+				<tr>
+					@foreach ($transaksi as $log)
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>{{ $log }}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					@endforeach
+				</tr>
             </tbody>
 		</table>
 	<table width="100%" style="text-align: center;">

@@ -5,7 +5,6 @@
                                     <th>Sisa</th>
                                     <th>Keterangan</th>
                                     <th>Tertanda</th>
-                                    <th>Jumlah Ambil</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -23,9 +22,9 @@
                                         <td>{{ $log->stoks->sum('qty') }}</td>
                                         <td>{{ $log->keterangan }}</td>
                                         <td>{{ $log->user->name }}</td>
-                                        <form method="POST" action="{{ route('cart.store') }}">
-                                            {{ csrf_field() }}
-                                        <td>
+                                        {{-- <form method="POST" action="{{ route('cart.store') }}">
+                                            {{ csrf_field() }} --}}
+                                        {{-- <td>
 
                                         <script>
                                         window.onload = function(){
@@ -39,13 +38,17 @@
                                             {{ $errors->first('qty') }}
                                             </div>
                                             @endif
-                                        </td>
+                                        </td> --}}
                                         <td>
-                                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                            <a href="#myModal" class="btn btn-primary btn-xs" id="openBtn" data-toggle="modal" data-target="{{ '#' . $log->id . 'keranjang' }}"><span class="fa fa-cart-plus" aria-hidden="true" data-toggle="tooltip" title="Ambil"></span></a>
+                                            @include('barang.keranjang', ['object' => $log])
+                                        </td>
+                                        {{-- <td> --}}
+                                            {{-- <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                                             <input type="hidden" name="barang_id" value="{{ $log->id }}">
                                             
                                         <button type="submit" value="submit" class="btn btn-info btn-link btn-xs"><span class="fa fa-cart-plus" aria-hidden="true" data-toggle="tooltip" title="Tambah"></span> </button>
-                                     <p id="demo"></p></td></form>
+                                     <p id="demo"></p></td></form> --}}
                                     </tr>
                                 {{-- @endif --}}
                                 @endforeach
@@ -57,7 +60,6 @@
                                     <th>Sisa</th>
                                     <th>Keterangan</th>
                                     <th>Tertanda</th>
-                                    <th>Jumlah Ambil</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

@@ -55,6 +55,8 @@ Route::get('/harga/barang/{barang}/area/{area}', 'HargaJualController@edit')->na
 
 Route::put('/harga/update/{barang}/area/{area}', 'HargaJualController@update')->name('harga.update');
 Route::delete('/harga/{barang}/area/{area}','HargaJualController@destroy')->name('harga.destroy');
+
+Route::post('/cart', 'CartController@checkout')->name('cart.checkout');
 Route::resource('cart', 'CartController');
 Route::resource('suratJalan', 'SuratJalanController');
 Route::post('/transaksi/confirm', 'TransaksiController@confirm')->name('transaksi.confirm');

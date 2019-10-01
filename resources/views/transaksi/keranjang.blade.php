@@ -15,7 +15,6 @@
                       <th>Nama</th>
                       <th>Jumlah</th>
                       <th>Aksi</th>
-
                   </tr>
               </thead>
               <tbody>
@@ -62,7 +61,8 @@
                             <label for="kategori" class=" col-md-2 control-label col-form-label text-md-right">{{ __('Tujuan') }}</label>
 
                             <div class="col-md-6">
-                                <select style="width: 100%;" class="cart"  name="gedung_id">
+                                <select class="js-example-basic-single "  name="gedung_id">
+                                  <option value="" disabled selected></option>
                                   @foreach($gedung as $key)
                                     <option value="{{ $key->id }}">{{ $key->nama }}</option>
                                   @endforeach
@@ -127,12 +127,6 @@
     $('#examples').DataTable({
       "pageLength": 5,
       "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, 'All']]
-    });
-
-   $('.cart').select2({
-        placeholder: 'Silahkan pilih data',
-        allowClear: true,
-        dropdownParent: $("#cartmodal")
     });
 } );
 </script>

@@ -9,6 +9,7 @@ use App\Cart;
 use Auth;
 use PDF;
 use App\Stok;
+use App\suratJalan;
 class TransaksiController extends Controller
 {
     /**
@@ -146,7 +147,6 @@ class TransaksiController extends Controller
                 'barang_id'=> $cart->barang_id,
                 'transaksi_id'=> $transaksi->id,
                 'qty'=> 0 - $cart->qty,
-                'sisa'=>$cart->qty,
             ]);
            
         };
@@ -176,7 +176,8 @@ class TransaksiController extends Controller
      */
     public function show(Transaksi $transaksi)
     {
-        $pdf = PDF::loadView('transaksi.show', compact('transaksi'));
+        $transaksi = Transaksi::find($transaksi);
+        $pdf = PDF::loadView('transaksi.suratJalan', compact('transaksi'));
         return $pdf->stream('unduh.pdf');
 
         // return view('transaksi.show', compact('transaksi'));
