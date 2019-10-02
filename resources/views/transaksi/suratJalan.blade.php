@@ -15,7 +15,9 @@
 	<table width="100%" >
 		<tbody>
 			<tr>
-				<td width="100%" colspan="2"><div style="float: right;">No : </div></td>
+				@foreach ($transaksi as $log)		{{-- expr --}}
+				@endforeach
+				<td width="100%" colspan="2"><div style="float: right;">No : {{ $log->suratJalan->no_surat }}</div></td>
 			</tr>
 			<tr>
 				<td width="50%" style="font-weight: bold;">Surat Jalan Barang V.3.0</td>
@@ -23,15 +25,16 @@
 			</tr>
 		</tbody>
 	</table>
-        <table width="10%" style="font-weight: bold;">
+        <table width="100%" style="font-weight: bold;">
         	<tbody>
         		<tr>
-        			<td>Tujuan</td>
-        			<td>:</td>
+        			<td width="10%">Tujuan</td>
+        			<td width="40%">: {{ $log->gedung->nama }}</td>
+        			<td width="50%"></td>
         		</tr>
         		<tr>
         			<td>Alamat</td>
-        			<td>:</td>
+        			<td>: {{ $log->gedung->alamat }}</td>
         		</tr>
         	</tbody>
         </table>
@@ -49,19 +52,19 @@
 					<td width="10%">UP</td>
 					<td width="40%">:</td>
 					<td width="10%">Pengirim </td>
-					<td width="40%">:</td>
+					<td width="40%">: {{ $log->suratJalan->pengirim }}</td>
                 </tr>
 				<tr>
 					<td>No. Telepon</td>
 					<td>:</td>
 					<td>No. Telp</td>
-					<td>:</td>
+					<td>: {{ $log->suratJalan->hp }}</td>
                 </tr>
 				<tr>
 					<td>Tanggal</td>
-					<td>:</td>
+					<td>: {{ $log->suratJalan->created_at }}</td>
 					<td>Nopol</td>
-					<td>:</td>
+					<td>: {{ $log->suratJalan->no_polisi }}</td>
                 </tr>
             </tbody>
         </table>
@@ -81,21 +84,25 @@
 					<td>Qty</td>
 					<td>Satuan</td>
 				</tr>
+@php
+	$c = 1;
+@endphp
+					@foreach ($log->carts as $l)
 				<tr>
-					@foreach ($transaksi as $log)
+						<td style="text-align: center;">{{ $c++ }}</td>
 						<td></td>
 						<td></td>
+						<td>{{ $l->barang->nama }}</td>
+						<td style="text-align: center;">{{ $l->qty }}</td>
+						<td style="text-align: center;">{{ $l->barang->satuan->nama }}</td>
+						<td style="text-align: center;">{{ $log->gedung->area->barangs->find($l->barang_id)->pivot->harga }} / {{ $l->keterangan }}</td>
 						<td></td>
 						<td></td>
-						<td>{{ $log }}</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					@endforeach
 				</tr>
+					@endforeach
             </tbody>
 		</table>
+		<br>
 	<table width="100%" style="text-align: center;">
 		<tbody>
 			<tr>
