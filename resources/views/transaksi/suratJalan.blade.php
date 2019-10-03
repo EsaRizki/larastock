@@ -29,12 +29,15 @@
         	<tbody>
         		<tr>
         			<td width="10%">Tujuan</td>
-        			<td width="40%">: {{ $log->gedung->nama }}</td>
+        			<td width="0%">:</td>
+        			<td width="40%">{{ $log->gedung->nama }}</td>
         			<td width="50%"></td>
         		</tr>
         		<tr>
         			<td>Alamat</td>
-        			<td>: {{ $log->gedung->alamat }}</td>
+        			<td>:</td>
+        			<td valign="top">{{ $log->gedung->alamat }}</td>
+        			<td></td>
         		</tr>
         	</tbody>
         </table>
@@ -144,5 +147,11 @@
 		NB:HARAP SPAREPART RUSAK DIKEMBALIKAN KE KANTOR PUSAT (HO) <br>
 		NAMA BARANG & TIKET HARUS DISESUAIKAN DISURAT JALAN YA
 	</div>
+	<br>
+	<div class="qr" style="">
+@php
+	QRCode::url(route('transaksi.show', $log->id))->setSize(4)->svg();
+@endphp
+</div>
 </body>
 </html>
