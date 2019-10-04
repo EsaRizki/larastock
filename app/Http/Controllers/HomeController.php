@@ -36,10 +36,12 @@ class HomeController extends Controller
         $masuk = [];
         $stoks = [];
         $cus = [];
+        $total = [];
         foreach (Lokasi::where('lokasi_id', null)->get() as $lokasi) {
             array_push($lokasis, $lokasi->nama);
             array_push($masuk, Stok::where('lokasi_id', $lokasi->id)->where('transaksi_id', null)->whereDate('created_at', Carbon::today())->sum('qty'));
             array_push($data, Stok::where('lokasi_id', $lokasi->id)->where('transaksi_id', '!=', null)->whereDate('created_at', Carbon::today())->sum('qty'));
+            array_push($total, Stok::where('lokasi_id', $lokasi->id)->sum('qty'));
             
         }
     //     foreach (Stok::where('transaksi_id', '!=' ,null)->get() as $stok) {
@@ -47,6 +49,6 @@ class HomeController extends Controller
     //     array_push($carts, $stok->count());
         
     // }
-         return view('home', compact('lokasis', 'data', 'stoks', 'carts', 'barangs', 'masuk'));
+         return view('home', compact('lokasis', 'data', 'stoks', 'carts', 'barangs', 'masuk', 'total'));
     }
 }

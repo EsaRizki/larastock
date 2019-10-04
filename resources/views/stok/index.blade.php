@@ -75,7 +75,7 @@
                                     @elseif (is_null($log->transaksi_id) && !is_null($log->keterangan))
                                     <td>{{ $log->keterangan }}</td>
                                      @elseif (!is_null($log->transaksi_id) && is_null($log->keterangan))
-                                    <td>{{ $log->transaksi->keterangan }}</td>
+                                    <td>{{ $log->transaksi->carts->where('barang_id', $log->barang_id)->first()->keterangan }}</td>
                                     @elseif (!is_null($log->transaksi_id) && !is_null($log->barang_id))
                                     <td>{{ $log->keterangan }}</td>                   
                                 @endif

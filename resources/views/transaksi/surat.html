@@ -17,7 +17,6 @@ padding:0 !important;
 color: #000;
 background: none;
 }
-
 /* Headings */
 
 /* Table */
@@ -97,38 +96,7 @@ background: none;
             </tbody>
         </table>
 		<table width="100%" border="1" cellspacing="0">
-			<tbody>
-                <tr style="align-content: center; font-weight: bold; align-items: center; text-align: center">
-					<td rowspan="2">No.</td>
-					<td rowspan="2">P</td>
-					<td rowspan="2">CS</td>
-					<td rowspan="2">Deskripsi</td>
-					<td colspan="2">Jumlah Barang</td>
-					<td rowspan="2">Hrg. Tiket/Keterangan</td>
-					<td rowspan="2">NM</td>
-					<td rowspan="2">NP</td>
-                </tr>
-				<tr style="text-align: center; font-weight: bold;">
-					<td>Qty</td>
-					<td>Satuan</td>
-				</tr>
-@php
-	$c = 1;
-@endphp
-					@foreach ($log->carts as $l)
-				<tr>
-						<td style="text-align: center;">{{ $c++ }}</td>
-						<td></td>
-						<td></td>
-						<td>{{ $l->barang->nama }}</td>
-						<td style="text-align: center;">{{ $l->qty }}</td>
-						<td style="text-align: center;">{{ $l->barang->satuan->nama }}</td>
-						<td style="text-align: center;">{{ $log->gedung->area->barangs->find($l->barang_id)->pivot->harga }} / {{ $l->keterangan }}</td>
-						<td></td>
-						<td></td>
-				</tr>
-					@endforeach
-            </tbody>
+			
 		</table>
 		<br>
 	<table width="100%" style="text-align: center;">
@@ -174,9 +142,7 @@ background: none;
 	</div>
 	<br>
 	<div class="qr" style="">
-@php
-	QRCode::url(route('transaksi.show', $log->id))->setSize(4)->svg();
-@endphp
+
 </div>
 </body>
 </html>
