@@ -1,5 +1,5 @@
 @foreach ($transaksi as $log)
-@if (Auth::id() == $log->user_id)
+@if (Auth::user()->role->id != 1)
 <tr>   
     <td>SKJ/AJ-LS/{{ $log->id }}</td> 
     <td><a href="#myModal" id="openBtn" data-toggle="modal" data-target="{{ '#' . $log->id . 'pengguna' }}">
@@ -18,7 +18,6 @@
         <td>Sedang diproses</td>
     @endif
     
-    <td>{{ $log->keterangan }}</td>
     <td>
         {{ $log->carts->sum('qty') }} barang
     </td>

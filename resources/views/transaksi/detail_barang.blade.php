@@ -13,7 +13,7 @@
                       <th>Nama</th>
                       <th>Asal Lokasi</th>
                       <th>Jumlah</th>
-                      <th>Aksi</th>
+                      
                   </tr>
               </thead>
               <tbody>
@@ -22,7 +22,7 @@
                     <td>{{ $el->barang->nama }}</td>
                     <td>{{ $el->barang->lokasi->nama }}</td>
                     <td>{{ $el->qty }}</td>
-                    <td></td>
+                    
                   </tr>
                 @endforeach
               </tbody>
@@ -31,7 +31,7 @@
                   <th>Nama</th>
                   <th>Asal Lokasi</th>
                   <th>Jumlah</th>
-                  <th>Aksi</th>
+                  
                 </tr>
               </tfoot>
             </table>

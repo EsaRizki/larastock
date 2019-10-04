@@ -37,7 +37,6 @@
                                     <th>Jumlah</th>
                                     <th>Sisa</th>
                                     <th>Tanggal</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody> 
@@ -97,9 +96,7 @@
                                 @endphp     
                                         <td>{{ $st }}</td>
                                         <td>{{ $log->created_at }}</td>
-                                        <td>
-                                         
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -111,7 +108,6 @@
                                     <th>Jumlah</th>
                                     <th>Sisa</th>
                                     <th>Tanggal</th>
-                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                         </table>

@@ -65,14 +65,12 @@ class TransaksiController extends Controller
                 'barang_id' => $request->barang_id[0],
                 'transaksi_id' => $request->transaksi_id,
                 'qty' => $selisih,
-                'sisa' => $selisih,
                 'keterangan' => $kurang,
             ]);
         }elseif ($selisih > 0) {
             Stok::create([
                 'barang_id' => $request->barang_id[0],
                 'transaksi_id' => $request->transaksi_id,
-                'sisa' => $selisih,
                 'qty' => $selisih,
                 'keterangan' => $lebih,
             ]);
@@ -108,7 +106,6 @@ class TransaksiController extends Controller
 
         $this->validate($request, [
             'user_id' => 'required',
-            'keterangan'=>'required'
         ]);
 
        //  $barang = Barang::with('carts')->where('id', $request->barang_id)->get();
@@ -135,7 +132,6 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::create([
             'user_id' => $request->user_id,
             'gedung_id' => $request->gedung_id,
-            'keterangan'=> $request->keterangan,
         ]);
         for ($i=0; $i < count($request->cart); $i++) { 
             $transaksi->carts()->attach(Cart::find($request->cart[$i]));
@@ -146,7 +142,9 @@ class TransaksiController extends Controller
             $stok = Stok::create([
                 'barang_id'=> $cart->barang_id,
                 'transaksi_id'=> $transaksi->id,
+                'kategori_id' => $cart->barang->kategori_id,
                 'qty'=> 0 - $cart->qty,
+                'lokasi_id' => $cart->barang->lokasi->parent->id,
             ]);
            
         };

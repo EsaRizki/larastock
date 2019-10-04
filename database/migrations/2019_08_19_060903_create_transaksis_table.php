@@ -19,7 +19,6 @@ class CreateTransaksisTable extends Migration
 
             $table->smallInteger('gedung_id')->unsigned();
             $table->boolean('status')->default(0);
-            $table->text('keterangan');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

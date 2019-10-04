@@ -173,6 +173,8 @@ class BarangController extends Controller
             ;
             $stok = Stok::create([
                 'barang_id' => $barang->id,
+                'lokasi_id' => $request->gudang_id,
+                'kategori_id' => $request->kategori_id,
                 'qty' => $request->qty,
             ]);
             if (isset($request->nilaiTiket)) {
@@ -264,6 +266,7 @@ class BarangController extends Controller
         ]);
         $barang->update($request->except('foto','qty', 'nilaiTiket'));
         $barang->stoks->first()->update([
+            'kategori_id' => $request->kategori_id,
             'qty' => $request->qty,
         ]);
 
@@ -354,6 +357,12 @@ class BarangController extends Controller
             
         ]);
         $barang->update($request->except('gudang_id', 'nama', 'barang_id'));
+        foreach ($barang->stoks as $log) {
+        $log->update([
+            'lokasi_id' => $request->gudang_id,
+        ]);
+            
+        }
         
         alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
         // Session::flash("flash_notification", [
@@ -372,7 +381,18 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        // dd($barang);
+        // dd($bbcode_set_arg_parser(bbcode_container, bbcode_arg_parser)ang);
+        if ($barang->foto) {
+        $old_foto = $barang->foto;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $barang->foto;
+        try {
+        File::delete($filepath);
+        } catch (FileNotFoundException $e) {
+        // File sudah dihapus/tidak ada
+        }
+        }
+        
         $barang->delete();
         alert()->success("Berhasil menghapus data barang", 'Sukses!')->autoclose(2500);
         return redirect()->route('barang.index');

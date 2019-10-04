@@ -22,7 +22,7 @@ class CreateGedungsTable extends Migration
         });
 
         Schema::table('transaksis', function (Blueprint $table) {
-            $table->foreign('gedung_id')->references('id')->on('gedungs')->onUpdate('cascade');
+            $table->foreign('gedung_id')->references('id')->on('gedungs')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

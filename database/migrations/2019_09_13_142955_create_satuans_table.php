@@ -20,7 +20,7 @@ class CreateSatuansTable extends Migration
         });
 
         Schema::table('barangs', function (Blueprint $table) {
-            $table->foreign('satuan_id')->references('id')->on('satuans')->onUpdate('cascade');
+            $table->foreign('satuan_id')->references('id')->on('satuans')->onUpdate('cascade')->onDelete('cascade');
         });
 
     }

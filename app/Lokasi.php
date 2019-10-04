@@ -22,4 +22,9 @@ class Lokasi extends Model
 	{
 		return $this->hasMany('App\Barang');
 	}
+
+	public function stoks()
+	{
+		return $this->hasMany('App\Stok');
+	}
 }

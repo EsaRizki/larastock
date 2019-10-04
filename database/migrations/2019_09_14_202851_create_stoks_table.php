@@ -16,12 +16,16 @@ class CreateStoksTable extends Migration
         Schema::create('stoks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('barang_id')->unsigned();
+            $table->smallInteger('lokasi_id')->unsigned();
             $table->bigInteger('transaksi_id')->unsigned()->nullable();
+            $table->smallInteger('kategori_id')->unsigned();
             $table->integer('qty');
             $table->text('keterangan')->nullable();
             $table->timestamps();
-            $table->foreign('barang_id')->references('id')->on('barangs')->onUpdate('cascade');
-            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade');
+            $table->foreign('barang_id')->references('id')->on('barangs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('lokasi_id')->references('id')->on('lokasis')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onUpdate('cascade')->onDelete('cascade');
         });
 
 

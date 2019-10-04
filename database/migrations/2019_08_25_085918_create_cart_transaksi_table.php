@@ -15,9 +15,9 @@ class CreateCartTransaksiTable extends Migration
     {
         Schema::Create('cart_transaksi', function (Blueprint $table) {
             $table->bigInteger('cart_id')->unsigned()->index();
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('transaksi_id')->unsigned()->index();
-            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onDelete('cascade');
+            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade')->onDelete('cascade');
             $table->primary(['cart_id', 'transaksi_id']);
         });
     }

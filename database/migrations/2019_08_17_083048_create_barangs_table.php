@@ -24,7 +24,7 @@ class CreateBarangsTable extends Migration
             $table->integer('harga');
             $table->tinyInteger('satuan_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

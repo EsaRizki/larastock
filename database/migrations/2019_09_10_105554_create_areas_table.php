@@ -21,7 +21,7 @@ class CreateAreasTable extends Migration
         });
             Schema::table('gedungs', function (Blueprint $table) {
             $table->tinyInteger('area_id')->unsigned();
-            $table->foreign('area_id')->references('id')->on('areas')->onUpdate('cascade');
+            $table->foreign('area_id')->references('id')->on('areas')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

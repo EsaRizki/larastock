@@ -15,9 +15,9 @@ class CreateBarangTransaksiTable extends Migration
     {
         Schema::create('barang_transaksi', function (Blueprint $table) {
             $table->bigInteger('barang_id')->unsigned()->index();
-            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
+            $table->foreign('barang_id')->references('id')->on('barangs')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('transaksi_id')->unsigned()->index();
-            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onDelete('cascade');
+            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade')->onDelete('cascade');
             $table->primary(['barang_id', 'transaksi_id']);
             $table->integer('qty');
         });

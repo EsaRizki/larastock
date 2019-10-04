@@ -41,16 +41,8 @@
                                         <td>
                                             {{ $log->nama }}
                                         </td>
-                                        @php
-                                            $sisa = $log->barangs->sum('jumlah'); 
-                                        @endphp
-                                        @foreach ($log->barangs as $e)
-                                            @php
-                                                $sisa = $sisa - $e->carts->sum('qty');
-                                            @endphp
-                                        @endforeach
-                                        
-                                        <td>{{ $sisa }} Barang</td>
+
+                                        <td>{{ $log->stoks->sum('qty') }} Barang</td>
                                         <td>
                                             @include('kategori.action')
                                              

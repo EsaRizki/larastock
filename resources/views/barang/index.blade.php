@@ -30,12 +30,12 @@
                     <a class="btn btn-primary" href="{{ route('barang.create') }}">Tambah</a>
                     @endif
                     
-                    @if (Auth::user()->role_id == 2)
+                    
                     <a class="btn btn-primary" href="#myModal" id="openBtn" data-toggle="modal" data-target="{{ '#' . 'cart' . 'modal' }}"><i class="fa fa-shopping-cart"></i> Cart <span class="badge">@if (count($badge->where('status',0)) != 0)
                         {{ $badge->where('status', 0)->sum('qty') }}
                     @endif</span></a>
                         @include('transaksi.cart')
-                    @endif
+                    
                   </p>
                    <div class="table-responsive">
                         <table id="example" class="table table-bordered table-striped display responsive nowrap compact" cellspacing="0" >

@@ -11,4 +11,8 @@ class Kategori extends Model
     public function barangs(){
     	return $this->hasMany('App\Barang');
     }
+
+    public function stoks(){
+    	return $this->hasMany('App\Stok');
+    }
 }

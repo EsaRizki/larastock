@@ -20,7 +20,7 @@ class CreateKategorisTable extends Migration
         });
 
         Schema::table('barangs', function (Blueprint $table) {
-            $table->foreign('kategori_id')->references('id')->on('kategoris')->onUpdate('cascade');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

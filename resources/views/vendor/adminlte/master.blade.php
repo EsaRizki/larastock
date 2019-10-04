@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Chart.min.css') }}">
 
 
     @include('adminlte::plugins', ['type' => 'css'])
@@ -56,6 +57,7 @@
 
 {{-- <script src="{{ asset('js/dataTables.bootstrap.js') }}" defer></script> --}}
 <script src="{{ asset('js/validator.min.js') }}" defer></script>
+<script src="{{ asset('js/Chart.min.js') }}" defer></script>
 {{-- <script src="{{ asset('js/buttons.html5.min.js') }}"></script> --}}
 {{-- <script src="{{ asset('js/jszip.min.js') }}"></script>
 

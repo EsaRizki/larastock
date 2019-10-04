@@ -13,7 +13,7 @@
                       <th>Nama</th>
                       <th>NIK</th>
                       <th>Email</th>
-                      <th>Aksi</th>
+                      
                   </tr>
               </thead>
               <tbody>
@@ -21,7 +21,7 @@
                     <td>{{ $log->users->name }}</td>
                     <td>{{ $log->users->nik }}</td>
                     <td>{{ $log->users->email }}</td>
-                    <td></td>
+                    
                   </tr>
               </tbody>
               <tfoot>
@@ -29,7 +29,7 @@
                   <th>Nama</th>
                   <th>NIK</th>
                   <th>Email</th>
-                  <th>Aksi</th>
+                  
                 </tr>
               </tfoot>
             </table>

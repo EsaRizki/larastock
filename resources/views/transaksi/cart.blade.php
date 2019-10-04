@@ -52,7 +52,7 @@
                 <input type="hidden" name="cart[]" value="{{ $el->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <input type="hidden" name="barang_id[]" value="{{ $el->barang_id }}">
-
+                {{ $el->barang->kategori_id }}
                 <input type="hidden" name="qty" value="{{ $el->qty }}">
                 @endif
           @endforeach
@@ -77,18 +77,7 @@
                         </div>
 
 
-          <div class="form-group row">
-            <label for="keterangan" class=" col-md-2 control-label col-form-label text-md-right">{{ __('Keterangan') }}</label>
-
-            <div class="col-md-6">
-          <textarea name="keterangan" id="" rows="3" class="form-control"></textarea>
-          @error('keterangan')
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-              </span>
-          @enderror
-        </div>
-      </div>
+          
           </div>
       <div class="modal-footer">
         {{-- @php

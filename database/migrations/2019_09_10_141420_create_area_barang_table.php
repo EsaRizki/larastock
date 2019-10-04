@@ -15,9 +15,9 @@ class CreateAreaBarangTable extends Migration
     {
         Schema::create('area_barang', function (Blueprint $table) {
             $table->tinyInteger('area_id')->unsigned()->index();
-            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            $table->foreign('area_id')->references('id')->on('areas')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('barang_id')->unsigned()->index();
-            $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
+            $table->foreign('barang_id')->references('id')->on('barangs')->onUpdate('cascade')->onDelete('cascade');
             $table->primary(['area_id', 'barang_id']);
             $table->integer('harga');
         });

@@ -43,7 +43,7 @@ return [
     
     'image' => [
         'enabled' => true,
-        'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf"',
+        'binary' => "'/vendor/h4cc/wkhtmltoimage-i386/bin/wkhtmltoimage-i386'",
 
         'timeout' => false,
         'options' => [],

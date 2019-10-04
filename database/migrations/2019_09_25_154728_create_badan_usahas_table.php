@@ -21,7 +21,7 @@ class CreateBadanUsahasTable extends Migration
 
         Schema::table('gedungs', function (Blueprint $table) {
             
-            $table->foreign('badan_usaha_id')->references('id')->on('badan_usahas')->onUpdate('cascade');
+            $table->foreign('badan_usaha_id')->references('id')->on('badan_usahas')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

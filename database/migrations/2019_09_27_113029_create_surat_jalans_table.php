@@ -23,7 +23,7 @@ class CreateSuratJalansTable extends Migration
             $table->string('no_polisi', 15);
             $table->timestamps();
 
-            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade');
+            $table->foreign('transaksi_id')->references('id')->on('transaksis')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
