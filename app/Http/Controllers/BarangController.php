@@ -141,14 +141,13 @@ class BarangController extends Controller
             'nama'=>'required|unique:barangs',
             'lokasi_id'=>'required|exists:lokasis,id',
             'kategori_id'=>'required|exists:kategoris,id',
-            'harga'=> 'required',
             'qty'=>'required',
             'satuan_id' => 'required|exists:satuans,id',
             'foto'=> 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty', 'nilaiTiket')) ;
+        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty')) ;
         // isi field cover jika ada cover yang diupload
             if ($request->hasFile('foto')) {
 
@@ -177,7 +176,7 @@ class BarangController extends Controller
                 'kategori_id' => $request->kategori_id,
                 'qty' => $request->qty,
             ]);
-            if (isset($request->nilaiTiket)) {
+            if (!is_null($request->harga)) {
                 
                 for ($i = 1; $i <= $area; $i++) {
                     if ($i == 1) {
@@ -264,7 +263,7 @@ class BarangController extends Controller
             'user_id' => 'required|exists:users,id',
             
         ]);
-        $barang->update($request->except('foto','qty', 'nilaiTiket'));
+        $barang->update($request->except('foto','qty'));
         $barang->stoks->first()->update([
             'kategori_id' => $request->kategori_id,
             'qty' => $request->qty,
@@ -295,6 +294,32 @@ class BarangController extends Controller
         $barang->save();
         }
 
+        
+        alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
+        // Session::flash("flash_notification", [
+        //     "level"=>"success",
+        //     "message"=>"Berhasil memperbarui data $barang->nama"
+        // ]);
+
+        return redirect()->route('barang.index');
+    }
+
+    public function updateLokasiBarang(Request $request, Barang $barang)
+    {
+        $this->validate($request,[
+            'barang_id'=>'required|exists:barangs,id',
+            'lokasi_id'=>'required|exists:lokasis,id',
+            'user_id' => 'required|exists:users,id',
+            
+        ]);
+        $barang->update($request->except('gudang_id', 'nama', 'barang_id'));
+        foreach ($barang->stoks as $log) {
+        $log->update([
+            'lokasi_id' => $request->gudang_id,
+        ]);
+            
+        }
+        $area = count(Area::all());
         //Rumus Nilai Tiket
         $jatabek = intval(($request->harga * 1.2)/30);
         $luarKota = intval(($request->harga * 1.25)/30);
@@ -311,7 +336,7 @@ class BarangController extends Controller
 
         //Rumus Nilai Tiket
 
-        if (isset($request->nilaiTiket)) {
+        if (!is_null($request->harga)) {
             for ($i = 1; $i <= $area; $i++) {
                     if ($i == 1) {
                     $harga = $jatabek;
@@ -338,30 +363,6 @@ class BarangController extends Controller
                     $barang->areas()->detach(Area::find($i));
                     $barang->areas()->attach(Area::find($i), ['harga' => $harga]);
                 };
-        }
-        alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);
-        // Session::flash("flash_notification", [
-        //     "level"=>"success",
-        //     "message"=>"Berhasil memperbarui data $barang->nama"
-        // ]);
-
-        return redirect()->route('barang.index');
-    }
-
-    public function updateLokasiBarang(Request $request, Barang $barang)
-    {
-        $this->validate($request,[
-            'barang_id'=>'required|exists:barangs,id',
-            'lokasi_id'=>'required|exists:lokasis,id',
-            'user_id' => 'required|exists:users,id',
-            
-        ]);
-        $barang->update($request->except('gudang_id', 'nama', 'barang_id'));
-        foreach ($barang->stoks as $log) {
-        $log->update([
-            'lokasi_id' => $request->gudang_id,
-        ]);
-            
         }
         
         alert()->success("Berhasil mengubah data $barang->nama", 'Sukses!')->autoclose(2500);

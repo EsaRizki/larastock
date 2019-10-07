@@ -103,7 +103,7 @@
                             <label for="gudang" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Gudang') }}</label>
 
                             <div class="col-md-6">
-                                <select class="js-example-basic-single form-control gudang" name="gudang_id">
+                                <select id="gudang_id" class="js-example-basic-single form-control gudang" name="gudang_id">
                                   <option value="" disabled selected></option>
                                   @foreach($gudang as $key)
                                     <option value="{{ $key->id }}">{{ $key->nama }}</option>
@@ -137,18 +137,18 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" id="harga">
                             <label for="harga" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Harga') }}</label>
 
                             <div class="col-md-6">
-                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" required autocomplete="harga" placeholder="Harga beli" autofocus>
+                                <input  type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" autocomplete="harga" placeholder="Harga beli" autofocus>
+                            </div>
 
-                            <div class="form-check">
+                            {{-- <div class="col-md-6 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nilaiTiket">
                             <label class="form-check-label" for="exampleCheck1">Atur nilai tiket</label>
                           </div>
-                            </div>
-                            <div>    
+ --}}                            <div>    
                                 @error('harga')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -225,6 +225,22 @@
         $(document).ready(function() {
             $("#output").hide();
         });
+        $(document).ready(function() {
+            $("#harga").hide();
+        });
+         $("#gudang_id").on("change",function(){
+        //Getting Value
+        var selValue = $("#gudang_id :selected").val();
+        console.log(selValue);
+        if (selValue == 1) {
+            $("#harga").show();
+        }else{
+
+        $("#harga").hide();
+        }
+
+    });
+ 
     </script>
     <script>
     var openFile = function(event) {

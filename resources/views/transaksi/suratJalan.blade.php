@@ -14,6 +14,8 @@ body {
 width:100% !important;
 margin:0 !important;
 padding:0 !important;
+padding-left:0 !important;
+padding-right:0 !important;
 color: #000;
 background: none;
 }
@@ -99,17 +101,17 @@ background: none;
 		<table width="100%" border="1" cellspacing="0">
 			<tbody>
                 <tr style="align-content: center; font-weight: bold; align-items: center; text-align: center">
-					<td rowspan="2">No.</td>
-					<td rowspan="2">P</td>
-					<td rowspan="2">CS</td>
-					<td rowspan="2">Deskripsi</td>
-					<td colspan="2">Jumlah Barang</td>
-					<td rowspan="2">Hrg. Tiket/Keterangan</td>
-					<td rowspan="2">NM</td>
-					<td rowspan="2">NP</td>
+					<td rowspan="2" width="5%">No.</td>
+					<td rowspan="2" width="5%">P</td>
+					<td rowspan="2" width="5%">CS</td>
+					<td rowspan="2" width="30%">Deskripsi</td>
+					<td colspan="2" width="20%">Jumlah Barang</td>
+					<td rowspan="2" width="25%">Hrg. Tiket/Keterangan</td>
+					<td rowspan="2" width="5%">NM</td>
+					<td rowspan="2" width="5%">NP</td>
                 </tr>
 				<tr style="text-align: center; font-weight: bold;">
-					<td>Qty</td>
+					<td width="8%">Qty</td>
 					<td>Satuan</td>
 				</tr>
 @php
@@ -168,7 +170,7 @@ background: none;
 		</tbody>
 	</table>
 	<br>
-	<div style="width: 100%; text-align: center; font-weight: bold; border: 3px solid #000000;">
+	<div style="width: 99%; text-align: center; font-weight: bold; border: 3px solid #000000;">
 		NB:HARAP SPAREPART RUSAK DIKEMBALIKAN KE KANTOR PUSAT (HO) <br>
 		NAMA BARANG & TIKET HARUS DISESUAIKAN DISURAT JALAN YA
 	</div>

@@ -99,27 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="harga" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Harga') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="harga" type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga', $barang->harga) }}" required autocomplete="harga" autofocus>
-
-                                @error('harga')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            <div class="form-check">
-                            @if($barang->areas != '[]')
-                            <input type="checkbox" class="form-check-input" checked="" id="exampleCheck1" name="nilaiTiket">
-                            @else
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="nilaiTiket">
-                            @endif
-                            <label class="form-check-label" for="exampleCheck1">Atur nilai tiket</label>
-                          </div>
-                        </div>
-                    </div>
+                        
 
                         <div class="form-group row">
                             <label for="jumlah" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Jumlah') }}</label>
@@ -195,7 +175,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div id="gudang_id" class="form-group row" >
                             <label for="gudang" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Gudang') }}</label>
                             <div class="col-md-6">
                                     {{-- <option value="{{ $e->id }}" {{ old('lokasi_id', $barang->lokasi_id) == $lok->id ? 'selected' : '' }}>{{ $lok->parent->nama }}</option> --}}
@@ -235,6 +215,20 @@
                             </div>
                         </div>
 
+                        <div id="harga" class="form-group row">
+                            <label for="harga" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Harga') }}</label>
+
+                            <div class="col-md-6">
+                                <input  type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga', $barang->harga) }}" autocomplete="harga" autofocus>
+
+                                @error('harga')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
+                    </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 col-md-offset-4 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -255,6 +249,22 @@
 @section('js')
     
     <script> console.log('Hi!'); </script>
+    <script>
+        $(document).ready(function() {
+            $("#harga").hide();
+        });
+         $("#gudang_id").on("change",function(){
+        //Getting Value
+        var selValue = $("#gudang_id :selected").val();
+        console.log(selValue);
+        if (selValue == 1) {
+            $("#harga").show();
+        }else{
+
+        $("#harga").hide();
+        }
+        });
+    </script>
     <script>
     var openFile = function(event) {
     var input = event.target;

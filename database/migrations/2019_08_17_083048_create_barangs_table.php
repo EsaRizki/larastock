@@ -21,7 +21,7 @@ class CreateBarangsTable extends Migration
             $table->boolean('status')->default(1);
             $table->smallInteger('kategori_id')->unsigned();
             $table->smallInteger('lokasi_id')->unsigned();
-            $table->integer('harga');
+            $table->integer('harga')->nullable();
             $table->tinyInteger('satuan_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->text('keterangan')->nullable();
