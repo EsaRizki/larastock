@@ -39,13 +39,14 @@
                   </p>
                    <div class="table-responsive">
                         <table id="example" class="table table-bordered table-striped display responsive nowrap compact" cellspacing="0" >
-                            @if (Auth::user()->role_id == 1)
-                                @include('barang.tabel_admin')
-                            @endif
+                            
+                                @if (Auth::user()->role_id == 1)
+                                    @include('barang.tabel_admin')
+                                @endif
 
-                            @if (Auth::user()->role_id == 2)
-                                @include('barang.tabel_member')
-                            @endif
+                                @if (Auth::user()->role_id == 2)
+                                    @include('barang.tabel_member')
+                                @endif
                         </table>
                     </div>
             </div>

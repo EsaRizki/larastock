@@ -14,7 +14,7 @@ class SatuanController extends Controller
      */
     public function index()
     {
-        //
+        return satuan::all()->pluck('nama', 'id');
     }
 
     /**

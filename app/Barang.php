@@ -13,7 +13,7 @@ class Barang extends Model
 		return $this->belongsTo('App\Lokasi');
 	}
 
-	public function kategoris(){
+	public function kategori(){
 		return $this->belongsTo('App\Kategori');
 	}
 

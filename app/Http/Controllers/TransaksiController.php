@@ -48,29 +48,33 @@ class TransaksiController extends Controller
   
        */
     public function confirm(Request $request){
-        $terima = $request->qty; 
+        $terima = $request->qty;
+
         $transaksi = Transaksi::find($request->transaksi_id);
-        $f = $transaksi->carts()->find($request->barang_id);
-        $selisih = $f[0]->qty - $terima;
+        $f = $transaksi->carts->where('barang_id',$request->barang_id)->where('status', 1)->first();
+        $selisih = $f->qty - $terima;
         $kurang = "item yang dikirim kurang ". abs($selisih);
         $lebih = "item yang dikirim lebih $selisih";
-         
+        $barang = Barang::find($request->barang_id);   
         $transaksi->barangs()->attach(Barang::find($request->barang_id), ['qty'=>$request->qty]);
-        $f[0]->update([
+        $f->update([
             'status' => 2,
         ]);
-
         if ($selisih < 0) {
             Stok::create([
-                'barang_id' => $request->barang_id[0],
+                'barang_id' => $request->barang_id,
                 'transaksi_id' => $request->transaksi_id,
+                'kategori_id' => $barang->kategori->id,
+                'lokasi_id' => $barang->lokasi->parent->id,
                 'qty' => $selisih,
                 'keterangan' => $kurang,
             ]);
         }elseif ($selisih > 0) {
             Stok::create([
-                'barang_id' => $request->barang_id[0],
+                'barang_id' => $request->barang_id,
                 'transaksi_id' => $request->transaksi_id,
+                'kategori_id' => $barang->kategori->id,
+                'lokasi_id' => $barang->lokasi->parent->id,
                 'qty' => $selisih,
                 'keterangan' => $lebih,
             ]);
@@ -81,9 +85,12 @@ class TransaksiController extends Controller
             $transaksi->update([
                 'status' => 2,
             ]);
-        }
         alert()->success("Berhasil menyelesaikan transaksi", 'Sukses!');
         return redirect()->route('transaksi.index');
+        }else{
+        alert()->success("Berhasil mengkonfirmasi jumlah barang", 'Sukses!');
+        return redirect()->route('transaksi.index');    
+        }
         
     }
 
@@ -146,6 +153,13 @@ class TransaksiController extends Controller
                 'qty'=> 0 - $cart->qty,
                 'lokasi_id' => $cart->barang->lokasi->parent->id,
             ]);
+            $barang = $cart->barang->stoks->sum('qty');
+            if ($barang <= 0) {
+                $barangUpdate = Barang::find($cart->barang_id);
+                $barangUpdate->update([
+                    'status' => 0
+                ]);
+            }
            
         };
         // for ($i=0; $i < count($request->barang_id); $i++) { 

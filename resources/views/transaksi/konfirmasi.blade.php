@@ -22,7 +22,7 @@
                         <td>{{ $cart->barang->nama }}</td>
                         <form action="{{ route('transaksi.confirm') }}" method="post" accept-charset="utf-8">
                             {{ csrf_field() }}
-                            <input type="hidden" name="barang_id[]" value="{{ $cart->barang_id }}">
+                            <input type="hidden" name="barang_id" value="{{ $cart->barang_id }}">
                             <input type="hidden" name="transaksi_id" value="{{ $log->id }}">
                             <td>
                                 <input type="number" name="qty" min="0" max="{{ $cart->barang->stoks->sum('qty') }}" value="{{ $cart->qty }}" class="form-control">

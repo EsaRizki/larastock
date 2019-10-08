@@ -52,7 +52,7 @@
                 <input type="hidden" name="cart[]" value="{{ $el->id }}">
                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                 <input type="hidden" name="barang_id[]" value="{{ $el->barang_id }}">
-                {{ $el->barang->kategori_id }}
+                
                 <input type="hidden" name="qty" value="{{ $el->qty }}">
                 @endif
           @endforeach

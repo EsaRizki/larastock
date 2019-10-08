@@ -126,15 +126,19 @@
                         <a href="#"><i class='fa fa-cubes'></i><span>{{ trans('Barang') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('kategori.index') }}"><i class='fa fa-list-alt'></i><span>{{ trans('Kategori') }}</span></a></li>
+                            <li><a href="#"><i class='fa fa-balance-scale'></i><span>{{ trans('Satuan') }}</span></a></li>
                             <li><a href="{{ route('barang.index') }}"><i class='fa fa-cubes'></i><span>{{ trans('Barang') }}</span></a></li>
                             <li><a href="{{ route('barang.habis') }}"><i class='fa fa-archive'></i><span> {{ trans('Habis') }}</span></a></li>
                         </ul>
                     </li>
+                    @php
+                        $transaksi = \App\Transaksi::where('status', 0)->count();
+                    @endphp
                     <li class="treeview">
-                        <a href="#"><i class='fa fa-car'></i> <span> {{ trans('Transaksi') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class='fa fa-car'></i> <span> {{ trans('Transaksi') }} </span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ route('transaksi.index') }}"><i class='fa fa-car'></i><span>{{ trans('Transaksi') }}</span></a></li>
-                            <li><a href="#"><i class='fa fa-trash'></i> <span>{{ trans('Pemusnahan') }}</span></a></li>
+                            <li><a href="{{ route('transaksi.index') }}"><i class='fa fa-car'></i><span>{{ trans('Transaksi') }}</span> <span class="badge">{{ $transaksi }}</span></a></li>
+                            {{-- <li><a href="#"><i class='fa fa-trash'></i> <span>{{ trans('Pemusnahan') }}</span></a></li> --}}
                         </ul>
                     </li>
                     @endif

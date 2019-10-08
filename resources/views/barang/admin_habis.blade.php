@@ -13,18 +13,14 @@
                             </thead>
                             <tbody> 
                                 @foreach ($barang as $log)
-                                @php
-                                        $transaksi = $log->carts->where('status', 1);
-                                        $sisa = $log->jumlah - $transaksi->sum('qty');
-                                @endphp
-                                @if ($sisa == 0)
+                                
                                     <tr>   
                                         <td>
                                             {{ $log->nama }}<a href="#myModal" id="openBtn" data-toggle="modal" data-target="{{ '#' . $log->id . 'modal' }}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
                                             @include('barang.detail_barang', ['object' => $log])
                                         </td>
                                         <td>{{ $log->lokasi->nama }}</td>
-                                        <td>{{ $log->jumlah }}</td>
+                                        <td>{{ $log->stoks->first()->qty }}</td>
                                         <td>
                                         @if($log->kondisi == 0)
                                         Baru
@@ -36,14 +32,13 @@
                                         </td>
                                         <td>{{ $log->keterangan }}</td>
                                         
-                                        <td>{{ $sisa }}</td>
+                                        <td>{{ $log->stoks->sum('qty') }}</td>
                                         <td>{{ $log->created_at }}</td>
                                         <td>{{ $log->user->name }}</td>
                                     
                                         <td>@include('barang.action')</td>
                                         @include('partials.qrcode', ['object' => $log])
                                     </tr>
-                                @endif
                                 @endforeach
                             </tbody>
                             <tfoot>

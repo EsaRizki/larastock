@@ -175,7 +175,7 @@
                             <label for="satuan" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Satuan') }}</label>
 
                             <div class="col-md-6">
-                                <select class="js-example-basic-single form-control satuan" name="satuan_id">
+                                <select class="satuan js-example-basic-single form-control satuan" name="satuan_id">
                                   <option value="" disabled selected></option>
                                   @foreach($satuan as $key)
                                     <option value="{{ $key->id }}">{{ $key->nama }}</option>
@@ -259,7 +259,7 @@
 <script>
     var $company2 = $('.gudang');
     var $location2 = $(".lokasi");
-
+    var $satuan = $(".satuan");
     $company2.select2().on('change', function() {
         $.ajax({
             url:"../lokasi/cari/" + $company2.val(), // if you say $(this) here it will refer to the ajax call not $('.company2')
@@ -273,5 +273,7 @@
             }
         });
     }).trigger('change');
+
+    
 </script>
 @stop

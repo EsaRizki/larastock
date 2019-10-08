@@ -55,6 +55,12 @@ class StokController extends Controller
             'kategori_id'=> $barang->kategori_id,
             'keterangan'=>$request->keterangan,
         ]);
+        $jumlah = $barang->stoks->sum('qty');
+        if ($jumlah > 0) {
+            $barang->update([
+                'status' => 1,
+            ]);
+        }
         alert()->success("Berhasil menyimpan data stok $barang->nama", 'Sukses!');
         return redirect()->route('stok.index', $barang);
     }

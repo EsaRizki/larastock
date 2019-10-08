@@ -27,6 +27,7 @@ Route::get('/lokasi/cari/{id}', 'LokasiController@cariLokasi')->name('lokasi.car
 Route::get('/harga/cari/{id}', 'HargaJualController@cariHarga')->name('harga.cari');
 Route::resource('lokasi', 'LokasiController');
 Route::resource('kategori', 'KategoriController');
+Route::resource('satuan', 'SatuanController');
 Route::get('barang/habis', [
 			'as' => 'barang.habis',
 			'uses' => 'BarangController@barangHabis'
