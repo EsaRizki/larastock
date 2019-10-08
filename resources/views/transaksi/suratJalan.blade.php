@@ -118,6 +118,9 @@ background: none;
 	$c = 1;
 @endphp
 					@foreach ($log->carts as $l)
+				@php
+				$cek = $log->gedung->area->barangs->find($l->barang_id);
+				@endphp
 				<tr>
 						<td style="text-align: center;">{{ $c++ }}</td>
 						<td></td>
@@ -125,7 +128,11 @@ background: none;
 						<td>{{ $l->barang->nama }}</td>
 						<td style="text-align: center;">{{ $l->qty }}</td>
 						<td style="text-align: center;">{{ $l->barang->satuan->nama }}</td>
-						<td style="text-align: center;">{{ $log->gedung->area->barangs->find($l->barang_id)->pivot->harga }} / {{ $l->keterangan }}</td>
+						@if(isset($cek))
+						<td style="text-align: center;">{{ $log->gedung->area->barangs->find($l->barang_id)->pivot->harga }} /  {{ $l->keterangan }}</td>
+						@else
+						<td style="text-align: center;">{{ $l->keterangan }}</td>
+						@endif
 						<td></td>
 						<td></td>
 				</tr>
