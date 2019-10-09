@@ -126,7 +126,7 @@
                         <a href="#"><i class='fa fa-cubes'></i><span>{{ trans('Barang') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li><a href="{{ route('kategori.index') }}"><i class='fa fa-list-alt'></i><span>{{ trans('Kategori') }}</span></a></li>
-                            <li><a href="#"><i class='fa fa-balance-scale'></i><span>{{ trans('Satuan') }}</span></a></li>
+                            <li><a href="{{ route('satuan.index') }}"><i class='fa fa-balance-scale'></i><span>{{ trans('Satuan') }}</span></a></li>
                             <li><a href="{{ route('barang.index') }}"><i class='fa fa-cubes'></i><span>{{ trans('Barang') }}</span></a></li>
                             <li><a href="{{ route('barang.habis') }}"><i class='fa fa-archive'></i><span> {{ trans('Habis') }}</span></a></li>
                         </ul>

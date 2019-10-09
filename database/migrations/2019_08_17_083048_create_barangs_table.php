@@ -1,5 +1,5 @@
 <?php
-
+ 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,12 +23,9 @@ class CreateBarangsTable extends Migration
             $table->smallInteger('lokasi_id')->unsigned();
             $table->integer('harga')->nullable();
             $table->tinyInteger('satuan_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
             $table->text('keterangan')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')
-            ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('lokasi_id')->references('id')->on('lokasis')
             ->onUpdate('cascade')->onDelete('cascade');
         });

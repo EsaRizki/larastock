@@ -12,6 +12,7 @@
                                     @csrf
                                     {{ method_field('POST') }}
                                     <input type="hidden" name="barang_id" value="{{ $log->id }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                     <div class="form-group row">
                                         <label for="jumlah" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Jumlah') }}</label>
 

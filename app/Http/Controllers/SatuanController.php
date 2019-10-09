@@ -14,7 +14,8 @@ class SatuanController extends Controller
      */
     public function index()
     {
-        return satuan::all()->pluck('nama', 'id');
+        $satuan = satuan::all();
+        return view('satuan.index', compact('satuan'));
     }
 
     /**
@@ -24,7 +25,7 @@ class SatuanController extends Controller
      */
     public function create()
     {
-        //
+        return view ('satuan.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class SatuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'nama'=>'required',
+        ]);
+
+        $satuan = satuan::create($request->all());
+
+        alert()->success("Berhasil menyimpan data $satuan->nama", 'Sukses!')->autoclose(2500);
+        return redirect()->route('satuan.index');
     }
 
     /**
@@ -57,7 +65,7 @@ class SatuanController extends Controller
      */
     public function edit(satuan $satuan)
     {
-        //
+        return view('satuan.edit', compact('satuan'));
     }
 
     /**
@@ -69,7 +77,17 @@ class SatuanController extends Controller
      */
     public function update(Request $request, satuan $satuan)
     {
-        //
+        $this->validate($request,[
+            'nama'=>'required|unique:satuans',
+        ]);
+
+        $satuan->update($request->all());
+        // Session::flash("flash_notification", [
+        //     "level"=>"success",
+        //     "message"=>"Berhasil menyimpan $lokasi->nama"
+        // ]);
+        alert()->success("Berhasil mengubah data $satuan->nama", 'Sukses!')->autoclose(2500);
+        return redirect()->route('satuan.index');
     }
 
     /**
@@ -80,6 +98,8 @@ class SatuanController extends Controller
      */
     public function destroy(satuan $satuan)
     {
-        //
+        $satuan->delete();
+        alert()->success("Berhasil menghapus data", 'Sukses!')->autoclose(2500);
+        return redirect()->route('satuan.index');
     }
 }

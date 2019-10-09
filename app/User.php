@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Barang');
     }
 
+    public function stoks()
+    {
+        return $this->hasMany('App\Stok');
+    }
+
 
     public function borrow(Request $request, Barang $barang)
     {

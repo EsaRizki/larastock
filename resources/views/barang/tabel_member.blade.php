@@ -21,7 +21,7 @@
                                         <td>{{ $log->lokasi->nama }}</td>
                                         <td>{{ $log->stoks->sum('qty') }}</td>
                                         <td>{{ $log->keterangan }}</td>
-                                        <td>{{ $log->user->name }}</td>
+                                        <td>{{ $log->stoks->first()->user->name }}</td>
                                         {{-- <form method="POST" action="{{ route('cart.store') }}">
                                             {{ csrf_field() }} --}}
                                         {{-- <td>

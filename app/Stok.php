@@ -12,6 +12,10 @@ class Stok extends Model
     	return $this->belongsTo('App\Barang');
     }
 
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
+
     public function transaksi(){
     	return $this->belongsTo('App\Transaksi');
     	// return $this->belongsTo('App\Transaksi');

@@ -42,7 +42,7 @@
                                         <td><a href="{{ route('stok.index', $log->id) }}">{{ $log->stoks->sum('qty') }}</a></td>
                                         <td>{{ $log->satuan->nama }}</td>
                                         <td>{{ $log->created_at }}</td>
-                                        <td>{{ $log->user->name }}</td>
+                                        <td>{{ $log->stoks->first()->user->name }}</td>
                                     
                                         <td>@include('barang.action')</td>
                                         @include('partials.qrcode', ['object' => $log])

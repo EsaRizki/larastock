@@ -59,7 +59,7 @@
                                     <tr>   
                                 @if (is_null($log->transaksi_id))                                    {{-- {{ $start }} --}}
                                         <td>
-                                            {{ $barang->user->name }}
+                                            {{ $log->user->name }}
                                         </td>
                                         @elseif (!is_null($log->transaksi_id))
                                         <td>{{ $log->transaksi->users->name }}</td>

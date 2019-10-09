@@ -104,6 +104,7 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
+
         // dd($request->nilaiTiket));
         $jatabek = intval(($request->harga * 1.2)/30);
         $luarKota = intval(($request->harga * 1.25)/30);
@@ -147,7 +148,7 @@ class BarangController extends Controller
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty')) ;
+        $barang = Barang::create($request->except('foto', 'gudang_id', 'qty', 'user_id')) ;
         // isi field cover jika ada cover yang diupload
             if ($request->hasFile('foto')) {
 
@@ -175,6 +176,7 @@ class BarangController extends Controller
                 'lokasi_id' => $request->gudang_id,
                 'kategori_id' => $request->kategori_id,
                 'qty' => $request->qty,
+                'user_id' => $request->user_id,
             ]);
             if (!is_null($request->harga)) {
                 
@@ -263,10 +265,11 @@ class BarangController extends Controller
             'user_id' => 'required|exists:users,id',
             
         ]);
-        $barang->update($request->except('foto','qty'));
+        $barang->update($request->except('foto','qty', 'user_id'));
         $barang->stoks->first()->update([
             'kategori_id' => $request->kategori_id,
             'qty' => $request->qty,
+            'user_id' => $request->user_id,
         ]);
 
         if ($request->hasFile('foto')) {

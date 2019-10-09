@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Stok;
 use App\Barang;
 use Illuminate\Http\Request;
-
+use Auth;
 class StokController extends Controller
 {
     /**
@@ -42,6 +42,7 @@ class StokController extends Controller
         $barang = Barang::find($request->barang_id);
         $this->validate($request,[
             'barang_id' => 'required|exists:barangs,id',
+            'user_id' => 'required|exists:users,id',
             'qty'=>'required',
             'keterangan' => 'required',
         ]);
@@ -53,6 +54,7 @@ class StokController extends Controller
             'qty'=>$request->qty,
             'lokasi_id' => $barang->lokasi->parent->id,
             'kategori_id'=> $barang->kategori_id,
+            'user_id' => $request->user_id,
             'keterangan'=>$request->keterangan,
         ]);
         $jumlah = $barang->stoks->sum('qty');
