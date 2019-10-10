@@ -84,9 +84,9 @@ class StokController extends Controller
      * @param  \App\Stok  $stok
      * @return \Illuminate\Http\Response
      */
-    public function edit(Stok $stok)
+    public function edit(Barang $barang, Stok $stok)
     {
-        //
+        return view('stok.edit', compact('barang', 'stok'));
     }
 
     /**
@@ -96,9 +96,11 @@ class StokController extends Controller
      * @param  \App\Stok  $stok
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stok $stok)
+    public function update(Request $request, Barang $barang, Stok $stok)
     {
-        //
+        $barang->stoks->find($stok)->update($request->all());
+        alert()->success("Berhasil mengubah data stok $barang->nama", 'Sukses!');
+        return redirect()->route('stok.index', $barang);
     }
 
     /**
@@ -107,7 +109,7 @@ class StokController extends Controller
      * @param  \App\Stok  $stok
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Stok $stok)
+    public function destroy(Barang $barang, Stok $stok)
     {
         //
     }

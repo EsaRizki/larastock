@@ -41,6 +41,7 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="{{ asset('css/googleFont.css') }}">
+<script src="{{ asset('js/instascan.min.js') }}"></script>
 </head>
 <body class="hold-transition @yield('body_class')">
 
@@ -65,7 +66,7 @@
 <script src="{{ asset('js/vfs_fonts.js') }}"></script>
  --}}{{-- <script src="{{ asset('js/buttons.print.min.js') }}"></script> --}}
 <script src="{{ asset('js/select2.full.js') }}"></script>
-
+<script src="{{ asset('js/custom.js') }}"></script>
 <script>
     $(document).ready(function() {
     // Setup - add a text input to each footer cell

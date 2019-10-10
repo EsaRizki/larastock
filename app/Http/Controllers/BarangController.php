@@ -315,7 +315,10 @@ class BarangController extends Controller
             'user_id' => 'required|exists:users,id',
             
         ]);
-        $barang->update($request->except('gudang_id', 'nama', 'barang_id'));
+        $barang->update($request->except('gudang_id', 'nama', 'barang_id', 'user_id'));
+        $barang->stoks->first()->update([
+            'user_id' => $request->user_id,
+        ]);
         foreach ($barang->stoks as $log) {
         $log->update([
             'lokasi_id' => $request->gudang_id,

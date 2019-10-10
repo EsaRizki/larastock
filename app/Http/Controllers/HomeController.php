@@ -24,6 +24,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function qr(){
+        return view('scanner');
+    }
     public function index()
     {
         //dd(Carbon::now()->format('Y-m-d'));

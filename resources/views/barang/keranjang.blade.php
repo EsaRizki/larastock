@@ -30,7 +30,7 @@
                             <label for="jumlah" class="col-md-offset-2 col-md-2 control-label col-form-label text-md-right">{{ __('Jumlah') }}</label>
 
                             <div class="col-md-6">
-                                <input id="jumlah" name="qty" type="number" min="1" max="{{ $log->stoks->sum('qty') }}" class="form-control @error('jumlah') is-invalid @enderror" value="{{ $log->qty }}" required autocomplete="jumlah" autofocus>
+                                <input id="jumlah" name="qty" type="number" min="1" max="{{ $log->stoks->sum('qty') }}" class="form-control @error('jumlah') is-invalid @enderror"  required autocomplete="jumlah" autofocus>
 
                                 @error('jumlah')
                                     <span class="invalid-feedback" role="alert">

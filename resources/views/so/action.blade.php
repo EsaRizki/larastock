@@ -1,0 +1,3 @@
+<a href="#myModal" class="btn btn-primary btn-xs" id="openBtn" data-toggle="modal" data-target="{{ '#' . $log->id . 'keranjang' }}"><span class="fa fa-cart-plus" aria-hidden="true" data-toggle="tooltip" title="Ambil"></span></a>
+{{-- <a class="btn btn-primary btn-xs" href="#"><span class="glyphicon glyphicon-refresh" aria-hidden="true" data-toggle="tooltip" title="Pindahkan ke daftar barang habis?"></span></a> <a class="btn btn-danger btn-xs" href="#"><span class="fa fa-ban" aria-hidden="true" data-toggle="tooltip" title="Musnahkan?"></span></a>  --}}
+@include('so.keranjang', ['object' => $log])

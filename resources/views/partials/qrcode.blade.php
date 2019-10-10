@@ -8,8 +8,10 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-md-3 col-md-offset-3">
+              
                 @php
                     QRCode::url(route('barang.show', $log->id))->setSize(7)->svg();
+                // QRCode::text(1    )->setSize(7)->svg();
                 @endphp
             </div>
         </div>

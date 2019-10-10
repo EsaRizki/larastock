@@ -18,6 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/qr', 'QRCodeController@index')->name('qr.index');
+
+Route::post('/qr', 'QRCodeController@upload_files')->name('qr.upload');
+
+
 Route::group(['middleware'=>['auth']], function () {
 Route::resource('user', 'UserController');
 Route::resource('gedung', 'GedungController');
@@ -43,10 +48,10 @@ Route::get('/stok/index/{id}', 'StokController@index')->name('stok.index');
 Route::get('/stok/create/{id}', 'StokController@create')->name('stok.create');
 Route::post('/stok', 'StokController@store')->name('stok.store');
 // Route::resource('stok', 'StokController');
-Route::get('/stok/barang/{barang}/area/{area}', 'StokController@edit')->name('stok.edit');
+Route::get('/stok/barang/{barang}/stok/{stok}', 'StokController@edit')->name('stok.edit');
 
-Route::put('/stok/update/{barang}/area/{area}', 'StokController@update')->name('stok.update');
-Route::delete('/stok/{barang}/area/{area}','StokController@destroy')->name('stok.destroy');
+Route::put('/stok/update/{barang}/stok/{stok}', 'StokController@update')->name('stok.update');
+Route::delete('/stok/{barang}/stok/{stok}','StokController@destroy')->name('stok.destroy');
 
 Route::get('/harga/index/{id}', 'HargaJualController@hargaJual')->name('harga.jual');
 Route::get('/harga/create/{id}', 'HargaJualController@create')->name('harga.create');
@@ -87,4 +92,6 @@ Route::get('barang/allTransaksi/{id}', [
 			'as' => 'barang.transaksi',
 			'uses' => 'BarangController@allTransaksi'
 		]);
+Route::resource('so', 'StockOpnameController');
+
 });

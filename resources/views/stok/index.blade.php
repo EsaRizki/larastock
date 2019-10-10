@@ -37,6 +37,9 @@
                                     <th>Jumlah</th>
                                     <th>Sisa</th>
                                     <th>Tanggal</th>
+                                    @if(Auth::user()->role->id == 1)
+                                    <th>Aksi</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody> 
@@ -54,6 +57,7 @@
                                     }
 
                                 @endphp
+
                                 @foreach ($barang->stoks as $log)
                                 
                                     <tr>   
@@ -96,6 +100,9 @@
                                 @endphp     
                                         <td>{{ $st }}</td>
                                         <td>{{ $log->created_at }}</td>
+                                        @if(Auth::user()->role->id == 1)
+                                        <td>@include('stok.action')</td>
+                                        @endif
                                         
                                     </tr>
                                 @endforeach
@@ -108,6 +115,9 @@
                                     <th>Jumlah</th>
                                     <th>Sisa</th>
                                     <th>Tanggal</th>
+                                    @if(Auth::user()->role->id == 1)
+                                    <th>Aksi</th>
+                                    @endif
                                 </tr>
                             </tfoot>
                         </table>
