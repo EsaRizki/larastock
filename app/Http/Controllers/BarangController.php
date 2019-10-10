@@ -30,7 +30,7 @@ class BarangController extends Controller
         $cart = Cart::all();
         $badge = Cart::where('user_id', Auth::id())->get();
         $cartUser = Cart::where('user_id', Auth::id())->where('status', 0)->get();
-        $barang = Barang::with('carts', 'user')->where('status', 1)->get();
+        $barang = Barang::with('carts', 'user')->where('status', '!=', 0)->get();
         $gedung = Gedung::all();
 
         return view('barang.index', compact('barang', 'cart', 'cartUser', 'badge', 'gedung'));

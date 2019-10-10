@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Barang;
 use App\Cart;
 use Auth;
+use \Carbon\Carbon;
 class StockOpnameController extends Controller
 {
     /**
@@ -18,14 +19,15 @@ class StockOpnameController extends Controller
     {
         $badge = Cart::where('user_id', Auth::id())->where('status', 3)->get();
         $cart = Cart::where('status', 3)->get();
-        if ($cart == "[]") {
-            $barang = Barang::all();
-        }
-        foreach ($cart as $log) {
-            $barang = Barang::where('id', '!=', $log->barang_id)->get();
-            echo "$barang";
-        }
-        dd($barang);
+        // if ($cart == "[]") {
+        //     $barang = Barang::all();
+        // }
+        // foreach ($cart as $log) {
+        //     $barang = Barang::where('status', '!=', 3)->whereDate('created_at', Carbon::today())->get();
+            
+        // }
+
+        $barang = Barang::all();
 
         return view('so.index', compact('barang', 'cart', 'badge'));
     }
@@ -62,7 +64,10 @@ class StockOpnameController extends Controller
                 return redirect()->route('so.index');        
            }
        }
-
+       $barang = Barang::find($request->barang_id);
+       $barang->update([
+        'status'=>3,
+       ]);
        $cart = Cart::create([
         'user_id' => $request->user_id,
         'barang_id' => $request->barang_id,
@@ -117,6 +122,10 @@ class StockOpnameController extends Controller
     public function destroy($id)
     {
         $cart = Cart::find($id);
+        $barang = Barang::find($cart->barang_id);
+        $barang->update([
+            'status' => 1,
+        ]);
         $cart->delete();
         alert()->success("Berhasil menghapus data pada keranjang", 'Sukses!')->autoclose(2500);
         return redirect()->route('so.index');

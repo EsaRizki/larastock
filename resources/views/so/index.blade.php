@@ -42,8 +42,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach($barang as $log)
+                                @if( $log->updated_at->format('d-m-Y') != \Carbon\Carbon::today()->format('d-m-Y') )
                                     <tr>
                                         <td>{{ $log->nama }}</td>
                                         <td>{{ $log->lokasi->parent->nama }}</td>
@@ -51,7 +51,17 @@
                                         <td>{{ $log->stoks->sum('qty') }}</td>
                                         <td>{{ $log->stoks->first()->user->name }}</td>
                                         <td>@include('so.action')</td>
-                                    </tr>   
+                                    </tr>
+                                    @elseif ($log->updated_at->format('d-m-Y') == \Carbon\Carbon::today()->format('d-m-Y') && $log->status != 3 )
+                                        <tr>
+                                        <td>{{ $log->nama }}</td>
+                                        <td>{{ $log->lokasi->parent->nama }}</td>
+                                        <td>{{ $log->lokasi->nama }}</td>
+                                        <td>{{ $log->stoks->sum('qty') }}</td>
+                                        <td>{{ $log->stoks->first()->user->name }}</td>
+                                        <td>@include('so.action')</td>
+                                    </tr>
+                                    @endif   
                                 @endforeach
                             </tbody>
                             <tfoot>
