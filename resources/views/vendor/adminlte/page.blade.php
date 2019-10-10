@@ -152,7 +152,7 @@
                     
                     <li class="header">Account Setting</li>
                     <li><a href="{{ route('user.profile', Auth::id()) }}"><i class='fas fa-fw fa-user'></i> <span>{{ trans('Profile') }}</span></a></li>
-                    <li><a href="{{ route('so.index') }}"><i class='fas fa-fw fa-user'></i> <span>{{ trans('Stock Opname') }}</span></a></li>
+                    <li><a href="{{ route('so.index') }}"><i class='glyphicon glyphicon-retweet'></i> <span>{{ trans('Stock Opname') }}</span></a></li>
                      {{-- <li><a href="#"><i class='fas fa-fw fa-lock'></i> <span>{{ trans('Ubah Password') }}</span></a></li>
                       --}}   
 
