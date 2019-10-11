@@ -68,7 +68,7 @@
                                         @elseif (!is_null($log->transaksi_id))
                                         <td>{{ $log->transaksi->users->name }}</td>
                                 @endif
-
+                                {{-- <td>{{ $log->transaksi_id }}</td> --}}
                                 @if (!isset($log->transaksi_id))
                                         <td>Masuk</td>
                                     @else

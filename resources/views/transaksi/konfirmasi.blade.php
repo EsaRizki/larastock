@@ -25,7 +25,7 @@
                             <input type="hidden" name="barang_id" value="{{ $cart->barang_id }}">
                             <input type="hidden" name="transaksi_id" value="{{ $log->id }}">
                             <td>
-                                <input type="number" name="qty" min="0" max="{{ $cart->barang->stoks->sum('qty') }}" value="{{ $cart->qty }}" class="form-control">
+                                <input type="number" name="qty" min="0"  value="{{ $cart->qty }}" class="form-control">
                             </td>
                             <td><button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-ok" aria-hidden="true" data-toggle="tooltip" title="Selesaikan"></span></button></td>
                         </form>
