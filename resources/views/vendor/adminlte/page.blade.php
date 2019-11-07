@@ -6,7 +6,7 @@
     @stack('css')
     @yield('css')
 @stop
- 
+  
 @section('body_class', 'skin-' . config('adminlte.skin', 'blue') . ' sidebar-mini ' . (config('adminlte.layout') ? [
     'boxed' => 'layout-boxed',
     'fixed' => 'fixed',

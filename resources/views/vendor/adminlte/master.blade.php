@@ -188,7 +188,7 @@ $(document).ready( function () {
 @include('adminlte::plugins', ['type' => 'js'])
 
 @yield('adminlte_js')
-    @include('sweet::alert')
+    @include('sweet::alert') 
 
 </body>
 </html>

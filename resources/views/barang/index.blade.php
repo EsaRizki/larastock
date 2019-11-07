@@ -28,7 +28,6 @@
                   <p>
                     @if (Auth::user()->role_id == 1)
                     <a class="btn btn-primary" href="{{ route('barang.create') }}">Tambah</a>
-                    <a class="btn btn-primary" href="#myModal" id="openBtn" data-toggle="modal" data-target="{{ '#' . 'cart' . 'modal' }}"><i class="glyphicon glyphicon-retweet"></i> SO </a>
                     @endif
                     
                     

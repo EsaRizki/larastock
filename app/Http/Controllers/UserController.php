@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Role;
 use Session;
+use App\Lokasi;
 class UserController extends Controller
 {
     /**
@@ -29,8 +30,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $lokasi = Lokasi::all();
         $role = Role::all();
-        return view('user.create', compact('role'));
+        return view('user.create', compact('role', 'lokasi'));
     }
  
     /**

@@ -93,6 +93,7 @@ class BarangController extends Controller
     {
         $filename = "images/$id-qrcode.png";
         QRCode::url(route('barang.show', $id))->setOutfile($filename)->png();
+        dd('stop');
         return response()->download($filename)->deleteFileAfterSend(true);
     }
 

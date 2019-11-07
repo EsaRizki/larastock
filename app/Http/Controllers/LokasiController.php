@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Lokasi;
 use Illuminate\Http\Request;
 use Session;
+use Excel;
+use App\Jobs\ImportJob;
+
 class LokasiController extends Controller
 {
     /**
@@ -17,6 +20,31 @@ class LokasiController extends Controller
         return Lokasi::where('lokasi_id', $id)->pluck('nama', 'id');
         
         // return view('lokasi.index', compact('lokasi'));
+    }
+
+    public function generateExcelTemplate(){
+
+    }
+
+    public function importLokasi(Request $request)
+    {
+        dd($request->all());
+        //VALIDASI
+        $this->validate($request, [
+            'import' => 'required|mimes:xls,xlsx'
+        ]);
+
+        if ($request->hasFile('import')) {
+            $file = $request->file('import'); //GET FILE
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs(
+                'public', $filename
+            );
+            //MEMBUAT JOBS DENGAN MENGIRIMKAN PARAMETER FILENAME
+            ImportJob::dispatch($filename); 
+            return redirect()->back()->with(['success' => 'Upload success']);
+        }  
+        return redirect()->back()->with(['error' => 'Please choose file before']);
     }
 
     public function index()
